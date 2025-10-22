@@ -23,7 +23,7 @@ import { useCreateLeitura } from "@/hook/Create/useCreateLeitura";
 import { useFetchUser } from "@/hook/Fetch/useFetchUser";
 //Action
 import { formatarFracao } from "@/actives/FormatValor";
-import { formatarMedicao } from "@/actives/FormatMedicao";
+
 import { truncateText } from "@/actives/truncateText";
 //TYPE
 import type { LojaProps } from "@/types";
@@ -240,8 +240,7 @@ export function Card({ loja }: { loja: LojaProps }) {
             medidor.leituras[0]?.consumo_mensal,
             medidor.tipo_medicao,
             loja.nome_loja,
-            medidor.leituras[0]?.leitura_anterior,
-            medidor.leituras[0]?.leitura_atual
+            medidor.leituras[0]?.leitura_anterior
           )}{" "}
           {medidor.tipo_medicao === "Energia" ? "kWh" : "m3"}
         </span>

@@ -35,11 +35,17 @@ export default function Login() {
 
   const { mutate, isPending } = useSignIn({
     onSuccess: (data) => {
-      setToken(data.session.access_token);
-      setUser(data.user);
-      Cookie.set("auth_token", data.session.access_token, { expires: 7 });
+      if (data.session) {
+        setToken(data.session.access_token);
+        setUser(data.user);
+        Cookie.set("auth_token", data.session.access_token, { expires: 7 });
 
-      router.push("/medicao");
+        router.push("/medicao");
+      } else {
+        toast.error("Falha ao obter sessão de autenticação.");
+        setToken("");
+        Cookie.set("auth_token", "", { expires: 7 });
+      }
     },
     onError: (error) => {
       toast.error(error.message);

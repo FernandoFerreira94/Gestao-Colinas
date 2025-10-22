@@ -50,7 +50,6 @@ export default function InfoLoja({ params }: DetalhesProps) {
   const [nome_loja, setNome_loja] = useState("");
   const [numero_loja, setNumero_loja] = useState("");
   const [detalheMedidor, setDetalheMedidor] = useState("");
-  const [medicao_atual, setMedicao_atual] = useState("");
   const [newPhoto, setNewPhoto] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -95,7 +94,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
       setNumero_loja(data?.loja?.numero_loja || "");
       setPrefixo(data?.loja?.prefixo_loja || "");
     }
-  }, [data]);
+  }, [data, leituraFiltradaMonth]);
 
   useEffect(() => {
     if (data?.medidor.localidade || data?.loja.prefixo_loja) {

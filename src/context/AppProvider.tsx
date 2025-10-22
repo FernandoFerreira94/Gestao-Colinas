@@ -42,7 +42,7 @@ export function AppProvider({ children }: AppProviderProps) {
     }
 
     getUser();
-  }, [data]);
+  }, [data, router]);
 
   return (
     <AppContext.Provider

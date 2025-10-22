@@ -1,14 +1,11 @@
-import { no } from "zod/v4/locales";
-
 export const formatarFracao = (
   valor: number | undefined,
   type?: string,
   nome_loja?: string,
-  medicao_anterior?: number | undefined,
-  medicao_atual?: number | undefined
+  medicao_anterior?: number | undefined
 ): string => {
   const medicao_anteriorString = String(medicao_anterior);
-  const medicao_atualString = String(medicao_atual);
+
   if (valor === undefined || valor === null) return "-";
 
   if (type === "Gas") {

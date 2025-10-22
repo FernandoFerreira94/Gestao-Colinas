@@ -1,8 +1,7 @@
 // app/api/usuarios/[id]/route.ts
-
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { UsuarioProps } from "@repo/utils";
+import { UsuarioProps } from "@/types";
 
 // Suas chaves de ambiente
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,9 +20,10 @@ const supabaseAdmin = createClient(supabaseUrl, serviceRoleKey);
 // =========================================================================
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> } // ✅ Ajuste aqui também
 ) {
-  const userId = params.id;
+  const { id: userId } = (await context.params) as { id: string };
+
   const body: Partial<UsuarioProps> = await req.json();
 
   if (!userId) {
@@ -33,8 +33,8 @@ export async function PUT(
     );
   }
 
-  let emailColinas: string | undefined = undefined;
-  let passwordCpf: string | undefined = undefined;
+  let emailColinas: string | undefined;
+  let passwordCpf: string | undefined;
 
   if (body.matricula) {
     const matriculaTratada = body.matricula.trim();
@@ -47,8 +47,6 @@ export async function PUT(
     if (body.cpf.length >= 6) {
       passwordCpf = body.cpf.slice(0, 6);
     } else {
-      // ⭐️ CORREÇÃO 1: PARE A EXECUÇÃO E RETORNE UM ERRO
-      console.warn("CPF fornecido é muito curto para gerar a senha.");
       return NextResponse.json(
         {
           error:
@@ -59,7 +57,6 @@ export async function PUT(
     }
   }
 
-  // Verifica se há alguma atualização para fazer (DB ou Auth)
   if (Object.keys(body).length === 0 && !emailColinas && !passwordCpf) {
     return NextResponse.json(
       { error: "Nenhum dado fornecido para atualização." },
@@ -68,35 +65,29 @@ export async function PUT(
   }
 
   try {
-    // 2. Atualiza dados de AUTENTICAÇÃO
+    // Atualiza dados de AUTENTICAÇÃO
     if (emailColinas || passwordCpf) {
       const authUpdates: { email?: string; password?: string } = {};
-
-      // Apenas adiciona ao objeto de atualização se o valor foi definido
       if (emailColinas) authUpdates.email = emailColinas;
       if (passwordCpf) authUpdates.password = passwordCpf;
 
-      // Garante que pelo menos um campo de autenticação será atualizado
       if (Object.keys(authUpdates).length > 0) {
         const { error: authError } =
           await supabaseAdmin.auth.admin.updateUserById(userId, authUpdates);
 
         if (authError) {
-          console.error("Erro ao atualizar autenticação:", authError.message);
-          // Retornar 409 (Conflict) se for erro de email já em uso, senão 500
           const status = authError.message.includes("already exists")
             ? 409
             : 500;
           return NextResponse.json(
-            {
-              error: `Erro ao atualizar o email/senha do usuário: ${authError.message}`,
-            },
-            { status: status }
+            { error: `Erro ao atualizar email/senha: ${authError.message}` },
+            { status }
           );
         }
       }
     }
 
+    // Atualiza dados da tabela 'usuarios'
     if (Object.keys(body).length > 0) {
       const { error: dbError } = await supabaseAdmin
         .from("usuarios")
@@ -104,15 +95,13 @@ export async function PUT(
         .eq("user_id", userId);
 
       if (dbError) {
-        console.error("Erro ao atualizar tabela 'usuarios':", dbError.message);
         return NextResponse.json(
-          { error: "Erro ao atualizar os dados na tabela do banco de dados." },
+          { error: "Erro ao atualizar os dados no banco de dados." },
           { status: 500 }
         );
       }
     }
 
-    // Sucesso!
     return NextResponse.json(
       { message: "Usuário atualizado com sucesso." },
       { status: 200 }
@@ -127,13 +116,13 @@ export async function PUT(
 }
 
 // =========================================================================
-// FUNÇÃO DELETE: DELETAR USUÁRIO (mantida)
+// FUNÇÃO DELETE: DELETAR USUÁRIO
 // =========================================================================
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> } // ✅ Ajuste aqui também
 ) {
-  const userId = params.id;
+  const { id: userId } = (await context.params) as { id: string };
 
   if (!userId) {
     return NextResponse.json(
@@ -143,36 +132,28 @@ export async function DELETE(
   }
 
   try {
-    // 1. Deleta o usuário do sistema de AUTENTICAÇÃO do Supabase
-    const { error: authError } =
-      await supabaseAdmin.auth.admin.deleteUser(userId);
-
+    const { error: authError } = await supabaseAdmin.auth.admin.deleteUser(
+      userId
+    );
     if (authError) {
-      console.error("Erro ao deletar usuário do auth:", authError.message);
       return NextResponse.json(
         { error: "Erro ao deletar o usuário do sistema de autenticação." },
         { status: 500 }
       );
     }
 
-    // 2. Deleta o registro do usuário na sua tabela 'usuarios'
     const { error: dbError } = await supabaseAdmin
       .from("usuarios")
       .delete()
       .eq("user_id", userId);
 
     if (dbError) {
-      console.error(
-        "Erro ao deletar usuário da tabela 'usuarios':",
-        dbError.message
-      );
       return NextResponse.json(
         { error: "Erro ao deletar o usuário da tabela do banco de dados." },
         { status: 500 }
       );
     }
 
-    // Sucesso!
     return NextResponse.json(
       { message: "Usuário deletado com sucesso." },
       { status: 200 }

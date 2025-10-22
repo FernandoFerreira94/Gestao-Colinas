@@ -105,7 +105,7 @@ export interface Medidores {
   numero_relogio: string;
   ultima_leitura?: number;
   detalhes: string;
-  quadro_distribuicao?: string | undefined;
+  quadro_distribuicao?: string | null;
   data_instalacao?: string;
 }
 export interface MedidorComLeitura {
@@ -169,7 +169,7 @@ export interface MedidorPayload {
   detalhes: string;
   numero_relogio: string;
   localidade: string;
-  quadro_distribuicao?: string; // Opcional
+  quadro_distribuicao?: string | null; // Opcional
   tipo_medicao: string; // Tipo string literal para segurança
   ultima_leitura: number;
 }

@@ -85,7 +85,8 @@ export function useUpdateLojaAndMedidores() {
               | "Gas", // Assegura o tipo literal
             ultima_leitura: Number(currentMedidorState.ultima_leitura),
             ...(currentMedidorState.tipo_medicao === "Energia" && {
-              quadro_distribuicao: currentMedidorState.quadro_distribuicao,
+              quadro_distribuicao:
+                currentMedidorState.quadro_distribuicao || null,
             }),
           };
           await upsertMedidor(payload);
