@@ -1,37 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏢 GESTÃO COLINAS
 
-## Getting Started
+**GESTÃO COLINAS** é um sistema web administrativo desenvolvido para auxiliar a gestão de medições de consumo de **energia, água e gás** em um complexo comercial que inclui um shopping e uma torre corporativa.
 
-First, run the development server:
+O projeto foi construído utilizando tecnologias modernas de frontend e backend, priorizando escalabilidade, desempenho e segurança. A aplicação web é o núcleo administrativo do sistema, responsável por cadastro, controle e análise dos dados coletados pelos dispositivos móveis.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Tecnologias Principais
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js** — Framework React para renderização otimizada e rotas avançadas.  
+- **React.js** — Interface dinâmica e responsiva.  
+- **Tailwind CSS** — Estilização moderna e produtiva.  
+- **shadcn/ui** — Componentes acessíveis e altamente customizáveis.  
+- **React Query** — Gerenciamento de dados assíncronos (queries e mutations).  
+- **Sonner** — Sistema de notificações elegante e responsivo.  
+- **Zod** — Validação de formulários e esquemas tipados.  
+- **TypeScript** — Tipagem estática para segurança e escalabilidade.  
+- **Supabase** — Backend completo (banco de dados, autenticação e storage).  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ⚙️ Funcionalidades Principais
 
-To learn more about Next.js, take a look at the following resources:
+- 🔐 **Autenticação e cadastro de usuários** com Supabase.  
+- 🧩 **Sistema de permissões administrativas (`is_admin`)**, controlando acesso e edição.  
+- 🧭 **Rotas privadas e protegidas** com controle de sessão.  
+- 🏬 **Cadastro e edição de lojas**, com associação a tipos de medição (energia, água e gás).  
+- 📆 **Filtros inteligentes** por data, mês, ano, tipo de medição e localidade.  
+- 🖼️ **Envio, upload e download de imagens** diretamente para o Supabase Storage.  
+- 📊 **Relatórios e gráficos interativos** exibindo o consumo por loja e por relógio.  
+- ⚖️ **Validação de medições** garantindo que os valores sejam sempre maiores que o mês anterior.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔗 Integração com Aplicativo Mobile
 
-## Deploy on Vercel
+O sistema web se integra diretamente ao aplicativo **MEDIÇÃO COLINAS**, que é responsável pela coleta das medições em campo.  
+As medições coletadas via mobile são sincronizadas em tempo real com o Supabase, alimentando os relatórios e gráficos disponíveis na interface administrativa.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Gestao-Colinas
+## 🧱 Arquitetura e Organização
+
+A aplicação é composta por camadas bem definidas:
+- **Frontend (Next.js)**: interface administrativa e lógica de exibição.
+- **Backend (Supabase)**: autenticação, banco de dados PostgreSQL e armazenamento de arquivos.
+- **Validação (Zod)**: esquemas tipados e seguros.
+- **Gerenciamento de estado (React Query)**: sincronia entre cliente e servidor.
+
+---
+
+## 🧩 Objetivo
+
+O **GESTÃO COLINAS** foi projetado para otimizar a coleta, validação e visualização dos dados de consumo, oferecendo uma visão analítica do uso de recursos e facilitando a administração das unidades comerciais do complexo Colinas.
+
+---
+
+## 📱 Projeto Relacionado
+
+🔗 [MEDIÇÃO COLINAS (Mobile)](https://github.com/FernandoFerreira94/Medicao-Colinas-Mobile)  
+Aplicativo React Native responsável pela coleta de medições de energia, água e gás em campo.
