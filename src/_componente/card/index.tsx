@@ -262,11 +262,13 @@ export function Card({ loja }: { loja: LojaProps }) {
               Medição
             </Button>
           </SheetTrigger>
-          <SheetContent className="w-8/12  h-full">
-            <SheetHeader className=" h-full">
-              <SheetTitle className="text-2xl font-semiboldborder">
+
+          <SheetContent className="flex flex-col">
+            <SheetHeader>
+              <SheetTitle className="text-2xl font-semibold">
                 Registrar medição
               </SheetTitle>
+
               <SheetTitle className="flex justify-between items-center mt-4">
                 <span className="text-lg font-medium">
                   {loja.nome_loja} / {loja.prefixo_loja} - {loja.numero_loja}
@@ -277,99 +279,100 @@ export function Card({ loja }: { loja: LojaProps }) {
                   } h-5 w-5 rounded-full`}
                 ></span>
               </SheetTitle>
-
-              <SheetDescription asChild className="text-gray-50 h-full ">
-                <div className="text-gray-50 flex-col flex gap-4 mt-2  ">
-                  <div className="flex flex-col gap-2">
-                    <span className="font-semibold text-lg">Complexo</span>
-                    <Label>{loja.complexo}</Label>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="font-semibold text-lg">
-                      Tipo de medição
-                    </span>
-                    <Label>{loja.medidores[0].tipo_medicao}</Label>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="font-semibold text-lg">Nº Relogio</span>
-                    <Label>{loja.medidores[0].numero_relogio}</Label>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="font-semibold text-lg">Localização</span>
-                    <Label>{loja.medidores[0].localidade}</Label>
-                  </div>
-                  {loja.medidores[0].tipo_medicao === "Energia" && (
-                    <div className="flex flex-col gap-2">
-                      <span className="font-semibold text-lg">Quadro</span>
-                      <Label>????</Label>
-                    </div>
-                  )}
-                  <div className="flex flex-col gap-2">
-                    <span className="font-semibold text-lg">
-                      Última medição
-                    </span>
-                    <Label
-                      className={`
-                       bg-gray-900 rounded-lg py-3 px-2 dark:bg-gray-600 border 
-                                  ${
-                                    loja.medidores[0].numero_relogio !==
-                                    "BUSWAY"
-                                      ? formData.medicao_atual >=
-                                        medidor.ultima_leitura
-                                        ? "border-green-500"
-                                        : "border-red-500"
-                                      : ""
-                                  }
-                                `}
-                    >
-                      {medidor.ultima_leitura}
-                    </Label>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="font-semibold text-lg">Medição atual</span>
-                    <Input
-                      type="number"
-                      placeholder="Digite a medição"
-                      value={formData.medicao_atual || ""}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          medicao_atual: parseFloat(e.target.value) || 0,
-                        })
-                      }
-                      required
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="font-semibold text-lg">Foto Relógio</span>
-                    <Input
-                      type="file"
-                      accept="image/jpeg, image/png, image/webp"
-                      onChange={handleFileChange}
-                    />
-                  </div>
-                  {formData.foto && (
-                    <div className="w-full, h-full, bg-white rounded-md flex justify-center items-center">
-                      <Image
-                        src={URL.createObjectURL(formData.foto)}
-                        alt="Foto do relogio"
-                        width={100}
-                        height={100}
-                        className="w-full h-20 object-contain rounded-md"
-                      />
-                    </div>
-                  )}
-
-                  <Button
-                    onClick={handleNextStep}
-                    className="w-full "
-                    variant={"outline"}
-                  >
-                    Registrar medição
-                  </Button>
-                </div>
-              </SheetDescription>
             </SheetHeader>
+
+            {/* 🔽 Container rolável */}
+            <div className="scroll-sheet flex-1 overflow-y-auto max-h-[calc(100vh-8rem)] pr-2">
+              <div className="flex flex-col gap-4 mt-2 text-gray-50">
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold text-lg">Complexo</span>
+                  <Label>{loja.complexo}</Label>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold text-lg">Tipo de medição</span>
+                  <Label>{loja.medidores[0].tipo_medicao}</Label>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold text-lg">Nº Relógio</span>
+                  <Label>{loja.medidores[0].numero_relogio}</Label>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold text-lg">Localização</span>
+                  <Label>{loja.medidores[0].localidade}</Label>
+                </div>
+
+                {loja.medidores[0].tipo_medicao === "Energia" && (
+                  <div className="flex flex-col gap-2">
+                    <span className="font-semibold text-lg">Quadro</span>
+                    <Label>????</Label>
+                  </div>
+                )}
+
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold text-lg">Última medição</span>
+                  <Label
+                    className={`bg-gray-900 rounded-lg py-3 px-2 dark:bg-gray-600 border 
+              ${
+                loja.medidores[0].numero_relogio !== "BUSWAY"
+                  ? formData.medicao_atual >= medidor.ultima_leitura
+                    ? "border-green-500"
+                    : "border-red-500"
+                  : ""
+              }`}
+                  >
+                    {medidor.ultima_leitura}
+                  </Label>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold text-lg">Medição atual</span>
+                  <Input
+                    type="number"
+                    placeholder="Digite a medição"
+                    value={formData.medicao_atual || ""}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        medicao_atual: parseFloat(e.target.value) || 0,
+                      })
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <span className="font-semibold text-lg">Foto Relógio</span>
+                  <Input
+                    type="file"
+                    accept="image/jpeg, image/png, image/webp"
+                    onChange={handleFileChange}
+                  />
+                </div>
+
+                {formData.foto && (
+                  <div className="w-full bg-white rounded-md flex justify-center items-center">
+                    <Image
+                      src={URL.createObjectURL(formData.foto)}
+                      alt="Foto do relogio"
+                      width={100}
+                      height={100}
+                      className="w-full h-20 object-contain rounded-md"
+                    />
+                  </div>
+                )}
+
+                <Button
+                  onClick={handleNextStep}
+                  className="w-full"
+                  variant="outline"
+                >
+                  Registrar medição
+                </Button>
+              </div>
+            </div>
           </SheetContent>
         </Sheet>
 
@@ -420,6 +423,7 @@ export function Card({ loja }: { loja: LojaProps }) {
                       Detalhe leitura
                     </span>
                     <Textarea
+                      placeholder="Inseira detalhes da leitura"
                       className="text-gray-900 dark:text-gray-50 border border-gray-400 rounded-lg px-2 py-2 bg-white"
                       value={formData.detalhes_leitura || ""}
                       onChange={(e) =>

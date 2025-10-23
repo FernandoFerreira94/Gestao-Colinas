@@ -1,6 +1,28 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+.scroll-sheet::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-sheet::-webkit-scrollbar-track {
+  background: #111827; /* fundo escuro */
+}
+
+.scroll-sheet::-webkit-scrollbar-thumb {
+  background: #3d3c6c; /* verde Tailwind (green-500) */
+  border-radius: 9999px;
+}
+
+.scroll-sheet::-webkit-scrollbar-thumb:hover {
+  background: #3d3c6c; /* green-600 */
+}
+
+.scroll-sheet {
+  scrollbar-width: thin;
+  scrollbar-color: #ececf0 #3d3c6c;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
