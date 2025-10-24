@@ -62,7 +62,7 @@ export function Chart({ data }: { data: LojaComLeiturasCombinadas }) {
   }
   return (
     <section className="w-full  border mt-18 py-8  bg-white dark:bg-[#151526] rounded-xl">
-      <ChartContainer config={chartConfig} className="min-h-[500px] w-full ">
+      <ChartContainer config={chartConfig} className="min-h-[50%] w-full ">
         <BarChart accessibilityLayer data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis
