@@ -47,7 +47,7 @@ export function SideBar({
   isMobile?: boolean;
   onClose?: () => void;
 }) {
-  const { showSideBar, setUser } = useAppContext();
+  const { showSideBar, setUser, setToken } = useAppContext();
   const router = useRouter();
   const pathName = usePathname();
   const { setTheme } = useTheme();
@@ -57,6 +57,7 @@ export function SideBar({
     setUser(null);
     Cookies.remove("auth_token");
     router.push("/");
+    setToken("");
     setTheme("light");
     if (onClose) onClose();
   }

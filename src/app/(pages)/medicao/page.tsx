@@ -14,7 +14,7 @@ const ITEMS_PER_PAGE = 40; // Define a quantidade inicial de itens a serem exibi
 
 export default function Dashboard() {
   const { month, year, typeMedicao, localidade, searchQuery } = useAppContext();
-  const { data, isLoading, error } = useFetchLojas(
+  const { data, isLoading, error, isError } = useFetchLojas(
     typeMedicao,
     month,
     year,
@@ -128,7 +128,7 @@ export default function Dashboard() {
         </span>
       </div>
       <section className="w-full flex flex-wrap mt-4">
-        {isLoading ? (
+        {isLoading && (
           <>
             <Skeleton className="w-75 h-45 mr-8 mb-8 " />
             <Skeleton className="w-75 h-45 mr-8 mb-8 " />
@@ -136,13 +136,12 @@ export default function Dashboard() {
             <Skeleton className="w-75 h-45 mr-8 mb-8 " />
             <Skeleton className="w-75 h-45 mr-8 mb-8 " />
           </>
-        ) : error ? (
-          <p>Ocorreu um erro: {error.message}</p>
-        ) : sortedLojas && sortedLojas.length > 0 ? (
+        )}
+
+        {
           <>
             {sortedLojas.slice(0, visibleCount).map((loja) => {
               if (!loja.id) {
-                console.error("ID ausente ou inválido para uma loja:", loja);
                 return null;
               }
               return <Card key={loja.id} loja={loja} />;
@@ -160,8 +159,11 @@ export default function Dashboard() {
               </div>
             )}
           </>
-        ) : (
-          <p>Nenhuma loja encontrada.</p>
+        }
+        {isError && (
+          <p className="w-full text-center font-semibold text-xl">
+            Nenhuma loja encontrada.
+          </p>
         )}
       </section>
     </Content>

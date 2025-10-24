@@ -26,7 +26,7 @@ export async function CreateLeitura(new_leitura: LeituraProps) {
     ...new_leitura,
     foto_url: fotoUrl || null,
   };
-  console.log("leituraToInsert:", leituraToInsert);
+
   // Insere a leitura no banco
   const { data: insertedData, error: insertError } = await supabase
     .from("leituras")

@@ -34,11 +34,12 @@ export function AppProvider({ children }: AppProviderProps) {
   const router = useRouter();
   useEffect(() => {
     function getUser() {
-      if (!data) return router.push("/");
       if (data) {
+        console.log(data.user?.user_id);
         setUser(data.user);
         setToken(data.access_token);
       }
+      // if (!data) return handleLogout();
     }
 
     getUser();

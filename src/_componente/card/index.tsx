@@ -135,6 +135,7 @@ export function Card({ loja }: { loja: LojaProps }) {
 
   const handleFinalSubmit = () => {
     const medicao_atual = limparNumero(formData.medicao_atual);
+
     const new_leitura = {
       medidor_id: medidor.id!,
       mes: month,
@@ -152,8 +153,8 @@ export function Card({ loja }: { loja: LojaProps }) {
       data_leitura: new Date("2025-06-01").toISOString(),
       nome_loja_leitura: loja.nome_loja,
     };
-
-    mutate(new_leitura);
+    console.log(new_leitura);
+    //  mutate(new_leitura);
 
     setIsConfirmSheetOpen(false);
     setFormData({
@@ -189,6 +190,14 @@ export function Card({ loja }: { loja: LojaProps }) {
 
   const nomePrefixo = `${loja.prefixo_loja} - ${loja.numero_loja}`;
 
+  const verifiedMonth = () => {
+    if (currentMonth === month && currentYear === year && currentDay < 10) {
+      return true;
+    }
+    return false;
+  };
+
+  const veryMonth = verifiedMonth();
   return (
     <div
       className={`border-l-8  ${
@@ -258,8 +267,11 @@ export function Card({ loja }: { loja: LojaProps }) {
 
         <Sheet open={isFormSheetOpen} onOpenChange={setIsFormSheetOpen}>
           <SheetTrigger asChild>
-            <Button disabled={shouldDisable} className="w-full h-8 ">
-              Medição
+            <Button
+              disabled={shouldDisable || veryMonth}
+              className="w-full h-8 "
+            >
+              {veryMonth ? "Mês não esta liberado" : "Medição"}
             </Button>
           </SheetTrigger>
 

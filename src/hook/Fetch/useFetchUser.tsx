@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { supabase } from "@/supabase/supabase";
 import { fetchUser } from "@/service/Fetch/fetchUser";
 import type { UsuarioProps } from "@/types";
-
+import { redirect } from "next/navigation";
 type UserWithSession = {
   user: UsuarioProps | null;
   access_token: string;
@@ -13,14 +13,14 @@ const getUserData = async (): Promise<UserWithSession> => {
   const storedToken = Cookies.get("auth_token");
 
   if (!storedToken) {
-    return null;
+    return redirect("/");
   }
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) return null;
+  if (!session) return redirect("/");
 
   const userData = await fetchUser(session.user.id as string);
 
