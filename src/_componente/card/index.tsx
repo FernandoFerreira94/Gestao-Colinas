@@ -133,12 +133,28 @@ export function Card({ loja }: { loja: LojaProps }) {
     }
   };
 
+  const converteMonth = () => {
+    if (currentMonth === month && currentYear === year && 1 < 10) {
+      return month - 1;
+    }
+    return month;
+  };
+
+  const veryMonthfunca = () => {
+    if (currentMonth === month && currentYear === year && 1 < 10) {
+      return true;
+    }
+    return false;
+  };
+  const veryMonth = veryMonthfunca();
+
   const handleFinalSubmit = () => {
     const medicao_atual = limparNumero(formData.medicao_atual);
 
+    const veryMonth = converteMonth();
     const new_leitura = {
       medidor_id: medidor.id!,
-      mes: month,
+      mes: veryMonth,
       ano: year,
       leitura_anterior: medidor.ultima_leitura,
       leitura_atual: medicao_atual,
@@ -153,8 +169,8 @@ export function Card({ loja }: { loja: LojaProps }) {
       data_leitura: new Date("2025-06-01").toISOString(),
       nome_loja_leitura: loja.nome_loja,
     };
-    console.log(new_leitura);
-    //  mutate(new_leitura);
+
+    mutate(new_leitura);
 
     setIsConfirmSheetOpen(false);
     setFormData({
@@ -190,14 +206,6 @@ export function Card({ loja }: { loja: LojaProps }) {
 
   const nomePrefixo = `${loja.prefixo_loja} - ${loja.numero_loja}`;
 
-  const verifiedMonth = () => {
-    if (currentMonth === month && currentYear === year && currentDay < 10) {
-      return true;
-    }
-    return false;
-  };
-
-  const veryMonth = verifiedMonth();
   return (
     <div
       className={`border-l-8  ${
