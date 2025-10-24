@@ -77,6 +77,9 @@ export function Localidade({
         <SelectItem value="Loja" className="flex items-center gap-2">
           Loja
         </SelectItem>
+        <SelectItem value="BUSWAY" className="flex items-center gap-2">
+          BUSWAY
+        </SelectItem>
         <SelectItem value="Outros" className="flex items-center gap-2">
           Outros
         </SelectItem>

@@ -94,7 +94,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
       setNumero_loja(data?.loja?.numero_loja || "");
       setPrefixo(data?.loja?.prefixo_loja || "");
     }
-  }, [data, leituraFiltradaMonth]);
+  }, [data]);
 
   useEffect(() => {
     if (data?.medidor.localidade || data?.loja.prefixo_loja) {
