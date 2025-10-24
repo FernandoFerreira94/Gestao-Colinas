@@ -134,14 +134,14 @@ export function Card({ loja }: { loja: LojaProps }) {
   };
 
   const converteMonth = () => {
-    if (currentMonth === month && currentYear === year && 1 < 10) {
+    if (currentMonth === month && currentYear === year && currentDay < 10) {
       return month - 1;
     }
     return month;
   };
 
   const veryMonthfunca = () => {
-    if (currentMonth === month && currentYear === year && 1 < 10) {
+    if (currentMonth === month && currentYear === year && currentDay < 10) {
       return true;
     }
     return false;
