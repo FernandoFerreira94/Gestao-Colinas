@@ -101,16 +101,16 @@ export default function Login() {
     <main className="flex w-full min-h-screen flex-col items-center justify-center bg-[#3D3C6C] relative">
       <div
         className="border w-3/12 min-w-140 h-full bg-gray-50 rounded-2xl flex flex-col items-center py-12 
-        max-sm:min-w-10/12 max-sm:py-8"
+        max-sm:min-w-10/12 max-sm:pb-4 max-sm:pt-0"
       >
-        <div className="relative w-full h-[150px] max-sm:w-10/12 mb-4">
+        <div className="relative w-full h-[150px] max-sm:w-8/12 mb-4 max-sm:mb-0">
           <Image
             src={Logo}
             alt="Logo"
             priority
             fill
             style={{ objectFit: "contain" }}
-            className="max-sm:w-10/12 "
+            className="max-sm:w-8/12 "
           />
         </div>
         <form
@@ -127,7 +127,7 @@ export default function Login() {
               type="text"
               id="matricula"
               name="matricula"
-              className="max-sm:text-sm max-sm:h-12"
+              className="max-sm:text-sm "
             />
             <span className="text-gray-500 text-sm font-normal w-full text-end transition duration-300 hover:text-cyan-600 ">
               <Sheet>
@@ -200,7 +200,7 @@ export default function Login() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
-                className="max-sm:text-sm max-sm:h-12"
+                className="max-sm:text-sm"
               />
               {showPassword ? (
                 <IoIosEyeOff

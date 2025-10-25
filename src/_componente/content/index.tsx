@@ -10,6 +10,7 @@ import { roxoPrimary } from "@/color";
 import { useFetchUser } from "@/hook/Fetch/useFetchUser";
 import { Title } from "../title";
 import React from "react";
+import { InputDate } from "@/components/ui/inputDate";
 
 export function Content({
   children,
@@ -25,14 +26,14 @@ export function Content({
   const firstName = user?.nome_completo.split(" ")[0];
 
   return (
-    <main className="h-full w-full text-gray-900 dark:text-gray-50  max-sm:w-full relative">
+    <main className="h-full w-full text-gray-900 dark:text-gray-50   max-sm:w-full relative">
       <SideBar />
       <div
-        className={`h-full transition-all mr-4 duration-800 ${
+        className={`h-full transition-all mr-4 duration-800   ${
           showSideBar ? "ml-62" : "ml-20"
-        }  max-sm:m-0`}
+        } max-sm:m-0 `}
       >
-        <div className="flex w-full mt-4 items-center">
+        <div className="flex w-full mt-4 items-center  max-sm:hidden">
           <button
             className="h-full cursor-pointer max-sm:hidden "
             onClick={() => setShowSideBar(!showSideBar)}
@@ -49,8 +50,8 @@ export function Content({
               />
             )}
           </button>
-          <div className="flex h-full justify-between items-center w-6/12 max-sm:w-full max-sm:flex-col-reverse max-sm:gap-4">
-            <h1 className="ml-4 text-2xl font-semibold flex items-center">
+          <div className="flex h-full  justify-between items-center w-6/12 max-sm:w-full max-sm:flex-col-reverse max-sm:gap-4 ">
+            <h1 className="ml-4 text-2xl  font-semibold flex items-center max-sm:hidden">
               {!user ? (
                 <div className="space-y-2 flex items-center">
                   <Skeleton className="h-8 w-[300px]" />
@@ -69,9 +70,10 @@ export function Content({
             <ModeToggle />
           </div>
         </div>
-        <div className={`mt-4 h-full pl-13 border-t border-gray-300 mb-20`}>
-          <section className="w-full flex mt-4 ">
+        <div className={` h-full pl-13  border-t border-gray-300  mb-20 max-sm:mb-4 max-sm:pl-2 max-sm:w-full max-sm:border-none max-sm:mt-16`}>
+          <section className="w-full flex mt-4 max-sm:items-center max-sm:px-2">
             <Title text={title} />
+            <InputDate  />
           </section>
           {children}
         </div>

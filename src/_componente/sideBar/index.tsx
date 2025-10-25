@@ -39,6 +39,8 @@ import { useFetchUser } from "@/hook/Fetch/useFetchUser";
 import { useFetchAllUsers } from "@/hook/Fetch/useFetchAllUsers";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { MdOutlineToggleOff, MdToggleOn } from "react-icons/md";
+import { ModeToggle } from "@/components/ui/modeToggle";
 
 export function SideBar({
   isMobile = false,
@@ -47,7 +49,7 @@ export function SideBar({
   isMobile?: boolean;
   onClose?: () => void;
 }) {
-  const { showSideBar, setUser, setToken } = useAppContext();
+  const { showSideBar, setUser, setToken,  } = useAppContext();
   const router = useRouter();
   const pathName = usePathname();
   const { setTheme } = useTheme();
@@ -66,25 +68,30 @@ export function SideBar({
   const { data: userAll } = useFetchAllUsers();
   const user = data?.user;
 
-  const baseNavClass = `fixed top-0 left-0 h-screen bg-[${roxoPrimary}] dark:bg-[${roxoDark}] rounded-tr-[16px] rounded-br-[16px] shadow-md transition-all duration-300 z-30 flex flex-col`;
+  const baseNavClass = `fixed top-0 left-0 h-screen  bg-[${roxoPrimary}] dark:bg-[${roxoDark}] rounded-tr-[16px] rounded-br-[16px] shadow-md transition-all duration-300 z-30 flex flex-col max-sm:h-14 max-sm:rounded-tr-[0px] max-sm:rounded-bl-[16px]  `;
   const desktopWidthClass = showSideBar ? "w-55" : "w-16 items-center";
   const mobileClass = `w-full bg-[${roxoPrimary}] dark:bg-[${roxoDark}]`;
-
+ const firstName = user?.nome_completo.split(" ")[0];
   return (
     <nav
-      className={`${baseNavClass} ${isMobile ? mobileClass : desktopWidthClass}
-      ${isMobile ? "" : "max-sm:hidden"} `}
+      className={`
+       max-sm:w-full max-sm:flex-row ${baseNavClass} ${isMobile ? mobileClass : desktopWidthClass}
+      ${isMobile ? "" : ""} `}
     >
       {isMobile && (
-        <div className="flex justify-between items-center p-4">
+        <div className="flex hidden justify-between items-center p-4">
           <h2 className="text-xl font-bold text-gray-50">Menu</h2>
           <button onClick={onClose} className="text-gray-50">
             <TbLogout2 size={24} />{" "}
           </button>
         </div>
       )}
+      <div className="w-2/4 text-gray-50 pl-4 gap-2 flex max-sm:flex hidden">
+        <span>{firstName}</span>
+        <span>{user?.funcao}</span>
+      </div>
 
-      <div className="mt-4 max-sm:hidden w-full flex justify-center">
+      <div className="mt-4  w-full flex justify-center max-sm:hidden">
         {showSideBar ? (
           <Image
             src={Logo}
@@ -105,20 +112,20 @@ export function SideBar({
       </div>
 
       <ul
-        className={`flex flex-col h-full w-full py-3 text-gray-100 ${
-          isMobile ? "text-sm" : "text-[17px]"
+        className={`flex flex-col h-full w-full py-3 text-gray-100 max-sm:flex-row   max-sm:pr-4 max-sm:gap-3 max-sm:justify-end max-sm:items-center ${
+          isMobile ? "text-sm" : "text-[17px] "
         }`}
       >
         <li
           title="Painel"
-          className={`flex items-center cursor-pointer hover:bg-white/10 ${
+          className={`flex items-center cursor-pointer hover:bg-white/10 max-sm:bg-transparent ${
             pathName === "/medicao" && "bg-white/20"
           } ${
             isMobile
-              ? "py-2 px-4"
+              ? "py-2 px-4 "
               : showSideBar
-              ? "py-2 px-3"
-              : "py-2 px-0 justify-center"
+              ? "py-2 px-3 "
+              : "py-2 px-0 justify-center "
           }`}
           onClick={onClose}
         >
@@ -146,17 +153,17 @@ export function SideBar({
                 pathName === "/registerStore" && "bg-white/20"
               } ${
                 isMobile
-                  ? "py-2 px-4"
+                  ? "py-2 px-4 "
                   : showSideBar
-                  ? "py-2 px-3"
-                  : "py-2 px-0 justify-center"
+                  ? "py-2 px-3 "
+                  : "py-2 px-0 justify-center hidden"
               }`}
               onClick={onClose}
             >
               <Link
                 href="/registerStore"
                 className={`w-full h-full flex items-center gap-2 ${
-                  showSideBar || isMobile ? "justify-start" : "justify-center"
+                  showSideBar || isMobile ? "justify-start " : "justify-center "
                 }`}
               >
                 {pathName === "/registerStore" ? (
@@ -170,14 +177,14 @@ export function SideBar({
 
             <li
               title="Editar loja"
-              className={`flex items-center cursor-pointer hover:bg-white/10 ${
-                pathName === "/editStore" && "bg-white/20"
+              className={`flex items-center cursor-pointer hover:bg-white/10 max-sm:hidden ${
+                pathName === "/editStore" && "bg-white/20 "
               } ${
                 isMobile
                   ? "py-2 px-4"
                   : showSideBar
                   ? "py-2 px-3"
-                  : "py-2 px-0 justify-center"
+                  : "py-2 px-0 justify-center "
               }`}
               onClick={onClose}
             >
@@ -198,7 +205,7 @@ export function SideBar({
 
             <li
               title="Cadastrar usuário"
-              className={`flex items-center cursor-pointer hover:bg-white/10 ${
+              className={`flex items-center cursor-pointer hover:bg-white/10 max-sm:hidden ${
                 pathName === "/registerUser" && "bg-white/20"
               } ${
                 isMobile
@@ -211,7 +218,7 @@ export function SideBar({
             >
               <Link
                 href="/registerUser"
-                className={`w-full h-full flex items-center gap-2 ${
+                className={`w-full h-full flex items-center gap-2  ${
                   showSideBar || isMobile ? "justify-start" : "justify-center"
                 }`}
               >
@@ -226,7 +233,7 @@ export function SideBar({
 
             <li
               title="Editar usuário"
-              className={`flex items-center cursor-pointer hover:bg-white/10 ${
+              className={`flex items-center cursor-pointer hover:bg-white/10 max-sm:hidden ${
                 isSheetOpen && "bg-white/20"
               } ${
                 isMobile
@@ -255,7 +262,7 @@ export function SideBar({
                 >
                   <SheetHeader>
                     <SheetTitle>Selecione o usuário</SheetTitle>
-                    <SheetDescription className="w-full text-gray-100 dar flex justify-between px-4 my-2">
+                    <SheetDescription className="max-sm:hidden w-full text-gray-100 dar flex justify-between px-4 my-2">
                       <span>Nome</span>Função
                     </SheetDescription>
                     <div className="w-full flex flex-col gap-4 pt-4">
@@ -287,7 +294,7 @@ export function SideBar({
 
             <li
               title="Exportar Excel"
-              className={`flex items-center cursor-pointer hover:bg-white/10 ${
+              className={`flex items-center cursor-pointer hover:bg-white/10 max-sm:hidden ${
                 pathName === "/exportExcel" && "bg-white/20"
               } ${
                 isMobile
@@ -318,7 +325,7 @@ export function SideBar({
         {!isMobile && (
           <li
             title="Perfil"
-            className={`flex items-center cursor-pointer hover:bg-white/10 ${
+            className={`flex items-center cursor-pointer hover:bg-white/10 max-sm:bg-transparent ${
               pathName === "/profile" && "bg-white/20"
             } ${showSideBar ? "py-2 px-3" : "py-2 px-0 justify-center"}`}
           >
@@ -337,16 +344,17 @@ export function SideBar({
             </Link>
           </li>
         )}
+       <ModeToggle />
 
         <li
           title="Sair"
-          className={`mt-auto mb-4 flex justify-center 
+          className={`mt-auto mb-4 flex justify-center max-sm:m-0
                       ${
                         isMobile
                           ? "py-2 px-4"
                           : showSideBar
                           ? "py-2 px-3"
-                          : "py-2 px-0 justify-center"
+                          : "py-1 px-1 justify-center items-center"
                       }
                       bg-red-500/30 hover:bg-red-500/50 dark:bg-red-600/30 dark:hover:bg-red-600/50 rounded-md mx-2`}
         >

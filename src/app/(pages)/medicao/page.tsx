@@ -116,10 +116,10 @@ export default function Dashboard() {
 
   return (
     <Content title="Painel medição">
-      <section className="w-full flex">
+      <section className="w-full flex ">
         <DateTipoMedicao />
       </section>
-      <div className="mt-4 py-4 text-lg flex gap-4 font-semibold w-full justify-start pr-9">
+      <div className="max-sm:text-[16px] mt-4 py-4 text-lg flex gap-4 font-semibold w-full justify-start pr-9 max-sm:p-0 max-sm:justify-center">
         <span className="text-green-500">
           Ativos ( {activeLeituras} / {activeCount} )
         </span>
@@ -148,7 +148,7 @@ export default function Dashboard() {
             })}
 
             {visibleCount < sortedLojas.length && (
-              <div className="w-full flex justify-center mt-8 mb-8">
+              <div className="w-full flex justify-center mt-8 mb-8 max-sm:m-0">
                 <Button
                   onClick={handleLoadMore}
                   variant={"ghost"}

@@ -71,16 +71,18 @@ export function DateTipoMedicao() {
   };
 
   return (
-    <div className="w-full flex items-center justify-end gap-20 mr-8 mt-4 ">
-      <div className="w-200 h-full flex items-end relative mr-auto">
+    <div className="w-full flex items-center justify-end gap-20 mr-8 mt-4  max-sm:flex-col-reverse max-sm:mr-2 max-sm:gap-4">
+      <div className="w-200 h-full flex items-end relative mr-auto max-sm:w-full">
         <Input
-          placeholder="Busque por loja, numero, medidor..."
-          className="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-300  "
+          placeholder="Nome loja e numero medidor"
+          className="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-300  max-sm:text-sm"
           type="search"
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <MdSearch size={20} className="absolute left-3 top-10 text-gray-500" />
+        <MdSearch size={20} className="absolute left-3 top-10 text-gray-500 max-sm:top-3" />
       </div>
+      <div className="flex gap-4">
+
       <div className="w-40 h-full flex items-end text-gray-900 dark:text-gray-50 ">
         <Localidade value={localidade} setValue={setLocalidade} />
       </div>
@@ -94,7 +96,8 @@ export function DateTipoMedicao() {
           </SelectContent>
         </Select>
       </div>
-      <div>
+      </div>
+      <div className="max-sm:hidden">
         <InputDate />
       </div>
     </div>

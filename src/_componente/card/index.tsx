@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 // SHADCN
 import { Button } from "@/components/ui/button";
 import {
@@ -29,6 +30,9 @@ import { truncateText } from "@/actives/truncateText";
 import type { LojaProps } from "@/types";
 import { limparNumero } from "@/actives/LimpaMedicao";
 
+import { useTheme } from "next-themes";
+import Cookies from "js-cookie";
+
 const date = new Date();
 const currentDay = date.getDate();
 const currentMonth = date.getMonth() + 1;
@@ -36,7 +40,7 @@ const currentYear = date.getFullYear();
 const currentDate = `${currentDay}/${currentMonth}/${currentYear}`;
 
 export function Card({ loja }: { loja: LojaProps }) {
-  const { month, year, typeMedicao, localidade, searchQuery } = useAppContext();
+  const { month, year, typeMedicao, localidade, searchQuery, setUser,setToken } = useAppContext();
   const { mutate, isPending } = useCreateLeitura(
     typeMedicao,
     month,
@@ -48,7 +52,8 @@ export function Card({ loja }: { loja: LojaProps }) {
   const { data } = useFetchUser();
   const user = data?.user;
   const firstName = user?.nome_completo.split(" ")[0];
-
+  const { setTheme } = useTheme();
+  const router = useRouter()
   const [isFormSheetOpen, setIsFormSheetOpen] = useState(false);
   const [isConfirmSheetOpen, setIsConfirmSheetOpen] = useState(false);
   const [formData, setFormData] = useState<{
@@ -60,12 +65,21 @@ export function Card({ loja }: { loja: LojaProps }) {
     detalhes_leitura: "",
     foto: null,
   });
+    function handleLogout() {
+    setUser(null);
+    Cookies.remove("auth_token");
+    router.push("/");
+    setToken("");
+    setTheme("light");
+    
+  }
 
   if (!loja.medidores || loja.medidores.length === 0) {
     return <span className="text-gray-500"></span>;
   }
 
   if (!user) {
+    handleLogout()
     return (
       <span className="text-gray-500">
         Por favor, faça login para registrar uma leitura.
@@ -210,16 +224,16 @@ export function Card({ loja }: { loja: LojaProps }) {
     <div
       className={`border-l-8  ${
         isMedidorVerified ? "border-green-500" : "border-red-500"
-      } flex flex-col w-100  gap-1 justify-between py-4 px-4 rounded-xl text-gray-900 dark:text-gray-50 mr-8 mb-8
+      } flex flex-col w-100 max-sm:w-full  gap-1 justify-between py-4 px-4 rounded-xl text-gray-900 dark:text-gray-50 mr-8 mb-8  max-sm:mr-2  max-sm:mb-4
       bg-white dark:bg-[#151526] hover:shadow-[2px_2px_10px_4px_#A7B3C3,-2px_-2px_10px_#FFFFFF] transition-shadow duration-300 shadow-xl`}
       key={loja.id}
     >
-      <div className="w-full flex justify-between">
-        <span title={loja.nome_loja} className="text-lg font-semibold">
+      <div className="w-full flex justify-between ">
+        <span title={loja.nome_loja} className="text-lg font-semibold  max-sm:text-[16px]">
           {truncateText(loja.nome_loja, 17)}
         </span>
         <div className="flex gap-2 ">
-          <span className="text-lg font-semibold">
+          <span className="text-lg font-semibold max-sm:text-[16px]">
             {truncateText(nomePrefixo, 17)}
           </span>
           <span
@@ -229,15 +243,15 @@ export function Card({ loja }: { loja: LojaProps }) {
           ></span>
         </div>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between max-sm:text-sm">
         <span>Nº relogio</span>
         <span>{medidor.numero_relogio}</span>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between max-sm:text-sm">
         <span>Localidade</span>
         <span>{medidor.localidade}</span>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between max-sm:text-sm">
         <span>Leitura mês anterior </span>
         <span>
           {" "}
@@ -246,11 +260,11 @@ export function Card({ loja }: { loja: LojaProps }) {
             : medidor.ultima_leitura}
         </span>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between max-sm:text-sm">
         <span>Leitura atual</span>
         <span>{medidor.leituras[0]?.leitura_atual || "--- ---"}</span>
       </div>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex justify-between max-sm:text-sm max-sm:hidden">
         <span>Consumo</span>
         <span>
           {formatarFracao(
@@ -263,8 +277,8 @@ export function Card({ loja }: { loja: LojaProps }) {
         </span>
       </div>
 
-      <div className="w-full flex justify-between gap-6">
-        <Button variant="outline" className="h-8 w-full">
+      <div className="w-full flex justify-between gap-6 ">
+        <Button variant="outline" className=" w-full max-sm:h-8">
           <Link
             href={`/loja/${loja.id}/${loja.medidores[0].id}`}
             className=" w-full h-full flex justify-center items-center"
@@ -277,7 +291,7 @@ export function Card({ loja }: { loja: LojaProps }) {
           <SheetTrigger asChild>
             <Button
               disabled={shouldDisable || veryMonth}
-              className="w-full h-8 "
+              className="w-full  max-sm:h-8"
             >
               {veryMonth ? "Mês não esta liberado" : "Medição"}
             </Button>
@@ -458,14 +472,13 @@ export function Card({ loja }: { loja: LojaProps }) {
                     Se sim, clique em **Registrar** para salvar os dados.
                   </div>
                   <div
-                    className="text-gray-50 flex-col flex h-full gap-4 mt-
-                  auto"
+                    className="text-gray-50 flex-col flex h-full "
                   >
                     {isPending ? (
                       <ButtonLoading />
                     ) : (
                       <Button
-                        className="w-full mt-auto"
+                        className="w-full mt-auto "
                         onClick={handleFinalSubmit}
                         variant={"outline"}
                         disabled={isPending}
