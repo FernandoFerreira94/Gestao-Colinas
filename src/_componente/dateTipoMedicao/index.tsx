@@ -81,12 +81,12 @@ export function DateTipoMedicao() {
         />
         <MdSearch size={20} className="absolute left-3 top-10 text-gray-500 max-sm:top-3" />
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 w-full">
 
-      <div className="w-40 h-full flex items-end text-gray-900 dark:text-gray-50 ">
+      <div className="w-40 max-sm:w-full h-full flex items-end text-gray-900 dark:text-gray-50 ">
         <Localidade value={localidade} setValue={setLocalidade} />
       </div>
-      <div className="w-40 h-full flex items-end ">
+      <div className="w-40 h-full   max-sm:w-full flex items-end ">
         <Select required value={typeMedicao} onValueChange={setTypeMedicao}>
           <SelectTrigger>
             <SelectValue placeholder={"Selecione o tipo de medição"} />

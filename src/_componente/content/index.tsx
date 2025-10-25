@@ -70,7 +70,7 @@ export function Content({
             <ModeToggle />
           </div>
         </div>
-        <div className={` h-full pl-13  border-t border-gray-300  mb-20 max-sm:mb-4 max-sm:pl-2 max-sm:w-full max-sm:border-none max-sm:mt-16`}>
+        <div className={` h-full pl-13  border-t border-gray-300  mb-20 max-sm:mb-4 max-sm:pl-2 max-sm:w-full max-sm:border-none max-sm:mt-19`}>
           <section className="w-full flex mt-4 max-sm:items-center max-sm:px-2">
             <Title text={title} />
             <InputDate  />

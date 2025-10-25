@@ -68,7 +68,7 @@ export function SideBar({
   const { data: userAll } = useFetchAllUsers();
   const user = data?.user;
 
-  const baseNavClass = `fixed top-0 left-0 h-screen  bg-[${roxoPrimary}] dark:bg-[${roxoDark}] rounded-tr-[16px] rounded-br-[16px] shadow-md transition-all duration-300 z-30 flex flex-col max-sm:h-14 max-sm:rounded-tr-[0px] max-sm:rounded-bl-[16px]  `;
+  const baseNavClass = `fixed top-0 left-0 h-screen  bg-[${roxoPrimary}] dark:bg-[${roxoDark}] rounded-tr-[16px] rounded-br-[16px] shadow-md transition-all duration-300 z-30 flex flex-col max-sm:h-16 max-sm:rounded-tr-[0px] max-sm:rounded-bl-[16px]  `;
   const desktopWidthClass = showSideBar ? "w-55" : "w-16 items-center";
   const mobileClass = `w-full bg-[${roxoPrimary}] dark:bg-[${roxoDark}]`;
  const firstName = user?.nome_completo.split(" ")[0];
