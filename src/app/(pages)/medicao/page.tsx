@@ -9,8 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button"; // Importe o componente Button do shadcn/ui
 import { useFetchLojas } from "@/hook/Fetch/useFetchLojas";
 import type { LojaProps } from "@/types";
+import {useWindowWidth} from "@/actives/windowWidth"
 
-const ITEMS_PER_PAGE = 40; // Define a quantidade inicial de itens a serem exibidos
 
 export default function Dashboard() {
   const { month, year, typeMedicao, localidade, searchQuery } = useAppContext();
@@ -22,13 +22,15 @@ export default function Dashboard() {
     searchQuery
   );
 
+
   const [filteredLojas, setFilteredLojas] = useState<LojaProps[]>([]);
   const [sortedLojas, setSortedLojas] = useState<LojaProps[]>([]);
   const [activeCount, setActiveCount] = useState(0);
   const [vacantCount, setVacantCount] = useState(0);
   const [activeLeituras, setActiveLeituras] = useState(0);
   const [vacanLeitura, setVacanLeitura] = useState(0);
-
+  const width = useWindowWidth()
+const ITEMS_PER_PAGE = width && width < 748 ? 8 : 40
   // NOVO: Estado para controlar a quantidade de lojas visíveis
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
 
@@ -128,16 +130,16 @@ export default function Dashboard() {
         </span>
       </div>
       <section className="w-full flex flex-wrap mt-4">
-        {isLoading && (
-          <>
-            <Skeleton className="w-75 h-45 mr-8 mb-8 " />
-            <Skeleton className="w-75 h-45 mr-8 mb-8 " />
-            <Skeleton className="w-75 h-45 mr-8 mb-8 " />
-            <Skeleton className="w-75 h-45 mr-8 mb-8 " />
-            <Skeleton className="w-75 h-45 mr-8 mb-8 " />
-          </>
-        )}
-
+      {isLoading && (
+  <>
+    {Array.from({ length: 5 }).map((_, index) => (
+      <Skeleton
+        key={index}
+        className="w-75 h-45 mr-8 mb-8 max-sm:w-full max-sm:mr-2 max-sm:mb-4"
+      />
+    ))}
+  </>
+)}
         {
           <>
             {sortedLojas.slice(0, visibleCount).map((loja) => {

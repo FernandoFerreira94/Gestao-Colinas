@@ -71,7 +71,7 @@ export function DateTipoMedicao() {
   };
 
   return (
-    <div className="w-full flex items-center justify-end gap-20 mr-8 mt-4  max-sm:flex-col-reverse max-sm:mr-2 max-sm:gap-4">
+    <div className="w-full flex items-center justify-end gap-20 mr-8 mt-4  max-sm:flex-col-reverse max-sm:mr-2 max-sm:gap-2">
       <div className="w-200 h-full flex items-end relative mr-auto max-sm:w-full">
         <Input
           placeholder="Nome loja e numero medidor"

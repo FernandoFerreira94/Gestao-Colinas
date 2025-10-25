@@ -33,7 +33,7 @@ export function SplashScreen() {
         alt="Logo"
         width={400}
         height={400}
-        className="max-sm:w-9/12"
+        className="max-sm:w-7/12"
       />
     </div>
   );

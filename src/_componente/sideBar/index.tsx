@@ -39,7 +39,6 @@ import { useFetchUser } from "@/hook/Fetch/useFetchUser";
 import { useFetchAllUsers } from "@/hook/Fetch/useFetchAllUsers";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { MdOutlineToggleOff, MdToggleOn } from "react-icons/md";
 import { ModeToggle } from "@/components/ui/modeToggle";
 
 export function SideBar({
@@ -344,7 +343,10 @@ export function SideBar({
             </Link>
           </li>
         )}
+        <div className="hidden max-sm:flex">
+
        <ModeToggle />
+        </div>
 
         <li
           title="Sair"

@@ -24,7 +24,6 @@ import { useCreateLeitura } from "@/hook/Create/useCreateLeitura";
 import { useFetchUser } from "@/hook/Fetch/useFetchUser";
 //Action
 import { formatarFracao } from "@/actives/FormatValor";
-
 import { truncateText } from "@/actives/truncateText";
 //TYPE
 import type { LojaProps } from "@/types";
@@ -48,6 +47,7 @@ export function Card({ loja }: { loja: LojaProps }) {
     localidade,
     searchQuery
   );
+
 
   const { data } = useFetchUser();
   const user = data?.user;
@@ -82,7 +82,7 @@ export function Card({ loja }: { loja: LojaProps }) {
     handleLogout()
     return (
       <span className="text-gray-500">
-        Por favor, faça login para registrar uma leitura.
+        Faça login para registrar uma leitura.
       </span>
     );
   }
@@ -91,14 +91,15 @@ export function Card({ loja }: { loja: LojaProps }) {
     e.preventDefault();
 
     if (!formData.medicao_atual || formData.medicao_atual <= 0) {
-      toast.info("Por favor, preencha a medição atual com um valor válido.");
+      toast.info("Preencha a medição atual com um valor válido.");
       return;
     }
-    if (formData.foto) {
-      toast.info("Por favor, insira uma foto do meidor.");
+    /*
+    if (!formData.foto) {
+      toast.info("Insira uma foto do medidor.");
       return;
     }
-
+*/
     if (medidor.numero_relogio === "BUSWAY") {
       setIsFormSheetOpen(false);
       setIsConfirmSheetOpen(true);
@@ -147,20 +148,30 @@ export function Card({ loja }: { loja: LojaProps }) {
     }
   };
 
+  const medidor = loja.medidores[0];
+    const medidorJaLidoNoMes = medidor.leituras.some(
+    (leitura) => leitura.mes === month && leitura.ano === year
+  );
+  
+
   const converteMonth = () => {
-    if (currentMonth === month && currentYear === year && currentDay < 10) {
+    if (currentMonth === month && currentYear === year && 1 < 10) {
       return month - 1;
     }
     return month;
   };
 
   const veryMonthfunca = () => {
-    if (currentMonth === month && currentYear === year && currentDay < 10) {
-      return true;
-    }
-    return false;
+    if(medidorJaLidoNoMes) return true
+    if (currentMonth === month && currentYear === year && currentDay <= 10) return true;
+    if (currentMonth === month && currentYear === year && currentDay >= 10) return false;
+    if (currentMonth !== month && currentYear === year ) return false;
+     if (user.is_adm) return false
+    return true;
   };
   const veryMonth = veryMonthfunca();
+
+  const textBtn = medidorJaLidoNoMes ? "Medição coletada" : currentMonth === month && currentYear === year && currentDay< 10 ? "Medição não liberada" : "Medição"
 
   const handleFinalSubmit = () => {
     const medicao_atual = limparNumero(formData.medicao_atual);
@@ -194,7 +205,6 @@ export function Card({ loja }: { loja: LojaProps }) {
     });
   };
 
-  const medidor = loja.medidores[0];
 
   const verifiedMedidor = () => {
     if (medidor.leituras[0]?.leitura_atual) {
@@ -205,26 +215,18 @@ export function Card({ loja }: { loja: LojaProps }) {
 
   const isMedidorVerified = verifiedMedidor();
 
-  const medidorJaLidoNoMes = medidor.leituras.some(
-    (leitura) => leitura.mes === month && leitura.ano === year
-  );
 
-  const shouldDisableButton2 = () => {
-    if (user.is_adm) {
-      return false;
-    }
-    const isShouldDisable = medidorJaLidoNoMes || 28 < 27;
-    return isShouldDisable;
-  };
-  const shouldDisable = shouldDisableButton2();
+
+
 
   const nomePrefixo = `${loja.prefixo_loja} - ${loja.numero_loja}`;
+ 
 
   return (
     <div
       className={`border-l-8  ${
         isMedidorVerified ? "border-green-500" : "border-red-500"
-      } flex flex-col w-100 max-sm:w-full  gap-1 justify-between py-4 px-4 rounded-xl text-gray-900 dark:text-gray-50 mr-8 mb-8  max-sm:mr-2  max-sm:mb-4
+      } flex flex-col w-100 max-sm:w-full  gap-1 justify-between py-4 max-sm:py-2 px-4 rounded-xl text-gray-900 dark:text-gray-50 mr-8 mb-8  max-sm:mr-2  max-sm:mb-4
       bg-white dark:bg-[#151526] hover:shadow-[2px_2px_10px_4px_#A7B3C3,-2px_-2px_10px_#FFFFFF] transition-shadow duration-300 shadow-xl`}
       key={loja.id}
     >
@@ -290,10 +292,10 @@ export function Card({ loja }: { loja: LojaProps }) {
         <Sheet open={isFormSheetOpen} onOpenChange={setIsFormSheetOpen}>
           <SheetTrigger asChild>
             <Button
-              disabled={shouldDisable || veryMonth}
+              disabled={veryMonth}
               className="w-full  max-sm:h-8"
             >
-              {veryMonth ? "Mês não esta liberado" : "Medição"}
+              {textBtn}
             </Button>
           </SheetTrigger>
 
