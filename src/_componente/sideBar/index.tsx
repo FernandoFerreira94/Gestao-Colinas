@@ -86,7 +86,7 @@ export function SideBar({
           </button>
         </div>
       )}
-      <div className="w-2/4 text-gray-50 pl-4 gap-2 flex max-sm:flex hidden">
+      <div className="w-2/4 text-gray-50 pl-6 flex-col  flex max-sm:flex hidden">
         <span>{firstName}</span>
         <span>{user?.funcao}</span>
       </div>
@@ -112,7 +112,7 @@ export function SideBar({
       </div>
 
       <ul
-        className={`flex flex-col h-full w-full py-3 text-gray-100 max-sm:flex-row   max-sm:pr-4 max-sm:gap-3 max-sm:justify-end max-sm:items-center ${
+        className={`flex flex-col h-full w-full py-3 text-gray-100 max-sm:flex-row   max-sm:pr-4 max-sm:gap-5 max-sm:justify-end max-sm:items-center ${
           isMobile ? "text-sm" : "text-[17px] "
         }`}
       >
