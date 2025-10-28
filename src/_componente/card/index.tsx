@@ -269,12 +269,7 @@ export function Card({ loja }: { loja: LojaProps }) {
       <div className="w-full flex justify-between max-sm:text-sm max-sm:hidden">
         <span>Consumo</span>
         <span>
-          {formatarFracao(
-            medidor.leituras[0]?.consumo_mensal,
-            medidor.tipo_medicao,
-            loja.nome_loja,
-            medidor.leituras[0]?.leitura_anterior
-          )}{" "}
+          {medidor.leituras[0]?.consumo_mensal}{" "}
           {medidor.tipo_medicao === "Energia" ? "kWh" : "m3"}
         </span>
       </div>
