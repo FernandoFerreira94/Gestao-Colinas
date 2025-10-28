@@ -136,7 +136,7 @@ export default function RegisterStore() {
     }
     console.log(loja);
     console.log(medidores);
-    mutate({ loja, medidores });
+    // mutate({ loja, medidores });
   }
 
   return (
@@ -261,6 +261,7 @@ export default function RegisterStore() {
                     required
                     id="ultima_leitura_energia"
                     name="ultima_leitura_energia"
+                    step="0.01"
                   />
                   <Label htmlFor="picture">Foto medidor</Label>
                   <Input id="picture" type="file" />
