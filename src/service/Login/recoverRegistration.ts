@@ -2,7 +2,7 @@ import { supabase } from "@/supabase/supabase";
 
 export async function recoverRegistration(nome_completo: string) {
   if (!nome_completo) {
-    return { error: "Por favor, preencha todos os campos." };
+    return { error: "Preencha todos os campos." };
   }
 
   try {

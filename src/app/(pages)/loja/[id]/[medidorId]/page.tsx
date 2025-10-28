@@ -159,9 +159,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
         "image/webp",
       ];
       if (!acceptedImageTypes.includes(file.type)) {
-        toast.error(
-          "Por favor, selecione um arquivo de imagem (JPG, PNG, WEBP)."
-        );
+        toast.error("Selecione um arquivo de imagem (JPG, PNG, WEBP).");
         setNewPhoto(null);
         setPreviewUrl(null);
         return;
@@ -232,7 +230,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
 
   return (
     <Content
-      title={`${data.loja.nome_loja} - ${data.loja.prefixo_loja} ${data.loja.numero_loja} - Mês referente ${month}/${year}`}
+      title={`${data.loja.nome_loja} - ${data.loja.prefixo_loja} ${data.loja.numero_loja}  ${month}/${year}`}
     >
       <main className="flex  items-start pt-8 max-sm:pt-4 gap-32 w-11/12 max-sm:flex-col max-sm:w-full">
         <section className="w-full ">
@@ -486,10 +484,9 @@ export default function InfoLoja({ params }: DetalhesProps) {
             )}
           </form>
         </section>
-<div className="max-sm:hidden">
-
-        <Chart data={data}  />
-</div>
+        <div className="max-sm:hidden">
+          <Chart data={data} />
+        </div>
       </main>
 
       {isModalOpen && (

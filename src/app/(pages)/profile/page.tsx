@@ -11,7 +11,7 @@ export default function Profile() {
   return (
     <Content title="Perfil">
       {isLoading && (
-        <section className="flex flex-col gap-10 w-2/5 mt-4 ">
+        <section className="flex flex-col gap-10 w-2/5 mt-4 max-sm:w-12/12 max-sm:gap-4">
           <Skeleton className="w-full h-18" />
           <Skeleton className="w-full h-18" />
           <Skeleton className="w-full h-18" />
@@ -21,7 +21,7 @@ export default function Profile() {
         </section>
       )}
       {data && (
-        <section className="flex flex-col gap-4 w-2/5 mt-4 ">
+        <section className="flex flex-col gap-4 w-2/5 mt-4 max-sm:w-full max-sm:pr-2">
           <Paragrafo titulo="Nome" text={data?.user?.nome_completo || ""} />
 
           <Paragrafo titulo="Função" text={data?.user?.funcao || ""} />

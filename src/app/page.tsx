@@ -61,7 +61,7 @@ export default function Login() {
     const password = formData.get("password") as string;
 
     if (!matricula || !password) {
-      toast.warning("Por favor, preencha todos os campos.");
+      toast.warning("Preencha todos os campos.");
       return;
     }
 

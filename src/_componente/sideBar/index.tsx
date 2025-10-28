@@ -48,7 +48,7 @@ export function SideBar({
   isMobile?: boolean;
   onClose?: () => void;
 }) {
-  const { showSideBar, setUser, setToken,  } = useAppContext();
+  const { showSideBar, setUser, setToken } = useAppContext();
   const router = useRouter();
   const pathName = usePathname();
   const { setTheme } = useTheme();
@@ -70,11 +70,13 @@ export function SideBar({
   const baseNavClass = `fixed top-0 left-0 h-screen  bg-[${roxoPrimary}] dark:bg-[${roxoDark}] rounded-tr-[16px] rounded-br-[16px] shadow-md transition-all duration-300 z-30 flex flex-col max-sm:h-16 max-sm:rounded-tr-[0px] max-sm:rounded-bl-[16px]  `;
   const desktopWidthClass = showSideBar ? "w-55" : "w-16 items-center";
   const mobileClass = `w-full bg-[${roxoPrimary}] dark:bg-[${roxoDark}]`;
- const firstName = user?.nome_completo.split(" ")[0];
+  const firstName = user?.nome_completo.split(" ")[0];
   return (
     <nav
       className={`
-       max-sm:w-full max-sm:flex-row ${baseNavClass} ${isMobile ? mobileClass : desktopWidthClass}
+       max-sm:w-full max-sm:flex-row ${baseNavClass} ${
+        isMobile ? mobileClass : desktopWidthClass
+      }
       ${isMobile ? "" : ""} `}
     >
       {isMobile && (
@@ -155,7 +157,7 @@ export function SideBar({
                   ? "py-2 px-4 "
                   : showSideBar
                   ? "py-2 px-3 "
-                  : "py-2 px-0 justify-center hidden"
+                  : "py-2 px-0 justify-center "
               }`}
               onClick={onClose}
             >
@@ -344,8 +346,7 @@ export function SideBar({
           </li>
         )}
         <div className="hidden max-sm:flex">
-
-       <ModeToggle />
+          <ModeToggle />
         </div>
 
         <li

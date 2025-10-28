@@ -71,31 +71,33 @@ export function DateTipoMedicao() {
   };
 
   return (
-    <div className="w-full flex items-center justify-end gap-20 mr-8 mt-4  max-sm:flex-col-reverse max-sm:mr-2 max-sm:gap-2">
-      <div className="w-200 h-full flex items-end relative mr-auto max-sm:w-full">
+    <div className="w-full flex items-center  gap-20 mr-8 max-sm:mt-2  max-sm:flex-col-reverse max-sm:mr-2 max-sm:gap-2">
+      <div className="w-9/12 h-full flex items-end relative mr-auto max-sm:w-full">
         <Input
           placeholder="Nome loja e numero medidor"
           className="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-300  max-sm:text-sm"
           type="search"
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <MdSearch size={20} className="absolute left-3 top-10 text-gray-500 max-sm:top-3" />
+        <MdSearch
+          size={20}
+          className="absolute left-3 top-9.5 text-gray-500 max-sm:top-3"
+        />
       </div>
-      <div className="flex gap-4 w-full">
-
-      <div className="w-40 max-sm:w-full h-full flex items-end text-gray-900 dark:text-gray-50 ">
-        <Localidade value={localidade} setValue={setLocalidade} />
-      </div>
-      <div className="w-40 h-full   max-sm:w-full flex items-end ">
-        <Select required value={typeMedicao} onValueChange={setTypeMedicao}>
-          <SelectTrigger>
-            <SelectValue placeholder={"Selecione o tipo de medição"} />
-          </SelectTrigger>
-          <SelectContent className="flex">
-            {renderizarOpcoesDeMedicao()}
-          </SelectContent>
-        </Select>
-      </div>
+      <div className="flex gap-4 w-full h-full  justify-end">
+        <div className="w-40 max-sm:w-full  flex items-end text-gray-900 dark:text-gray-50 ">
+          <Localidade value={localidade} setValue={setLocalidade} />
+        </div>
+        <div className="w-40 h-full   max-sm:w-full flex items-end ">
+          <Select required value={typeMedicao} onValueChange={setTypeMedicao}>
+            <SelectTrigger>
+              <SelectValue placeholder={"Selecione o tipo de medição"} />
+            </SelectTrigger>
+            <SelectContent className="flex">
+              {renderizarOpcoesDeMedicao()}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div className="max-sm:hidden">
         <InputDate />

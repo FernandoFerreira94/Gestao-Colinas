@@ -70,12 +70,13 @@ export function Content({
             <ModeToggle />
           </div>
         </div>
-        <div className={` h-full pl-13  border-t border-gray-300  mb-20 max-sm:mb-4 max-sm:pl-2 max-sm:w-full max-sm:border-none max-sm:mt-19`}>
-          <section className="w-full flex mt-4 max-sm:items-center max-sm:px-2 max-sm:justify-between">
+        <div
+          className={` h-full pl-13  border-t border-gray-300  mb-20 max-sm:mb-4 max-sm:pl-2 max-sm:w-full max-sm:border-none max-sm:mt-19`}
+        >
+          <section className="w-full flex mt-4 max-sm:items-center max-sm:px-2 max-sm:justify-between gap-4">
             <Title text={title} />
-            <div className="hidden max-sm:flex">
-
-            <InputDate  />
+            <div className="hidden max-sm:flex  border">
+              <InputDate />
             </div>
           </section>
           {children}

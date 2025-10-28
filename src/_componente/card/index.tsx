@@ -39,7 +39,15 @@ const currentYear = date.getFullYear();
 const currentDate = `${currentDay}/${currentMonth}/${currentYear}`;
 
 export function Card({ loja }: { loja: LojaProps }) {
-  const { month, year, typeMedicao, localidade, searchQuery, setUser,setToken } = useAppContext();
+  const {
+    month,
+    year,
+    typeMedicao,
+    localidade,
+    searchQuery,
+    setUser,
+    setToken,
+  } = useAppContext();
   const { mutate, isPending } = useCreateLeitura(
     typeMedicao,
     month,
@@ -48,12 +56,11 @@ export function Card({ loja }: { loja: LojaProps }) {
     searchQuery
   );
 
-
   const { data } = useFetchUser();
   const user = data?.user;
   const firstName = user?.nome_completo.split(" ")[0];
   const { setTheme } = useTheme();
-  const router = useRouter()
+  const router = useRouter();
   const [isFormSheetOpen, setIsFormSheetOpen] = useState(false);
   const [isConfirmSheetOpen, setIsConfirmSheetOpen] = useState(false);
   const [formData, setFormData] = useState<{
@@ -65,13 +72,12 @@ export function Card({ loja }: { loja: LojaProps }) {
     detalhes_leitura: "",
     foto: null,
   });
-    function handleLogout() {
+  function handleLogout() {
     setUser(null);
     Cookies.remove("auth_token");
     router.push("/");
     setToken("");
     setTheme("light");
-    
   }
 
   if (!loja.medidores || loja.medidores.length === 0) {
@@ -79,12 +85,8 @@ export function Card({ loja }: { loja: LojaProps }) {
   }
 
   if (!user) {
-    handleLogout()
-    return (
-      <span className="text-gray-500">
-        Faça login para registrar uma leitura.
-      </span>
-    );
+    handleLogout();
+    return <span>Buscando...</span>;
   }
 
   const handleNextStep = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -128,9 +130,7 @@ export function Card({ loja }: { loja: LojaProps }) {
         "image/webp",
       ];
       if (!acceptedImageTypes.includes(file.type)) {
-        toast.error(
-          "Por favor, selecione um arquivo de imagem (JPG, PNG, WEBP)."
-        );
+        toast.error("Selecione um arquivo de imagem (JPG, PNG, WEBP).");
         setFormData({ ...formData, foto: null });
         return;
       }
@@ -149,37 +149,38 @@ export function Card({ loja }: { loja: LojaProps }) {
   };
 
   const medidor = loja.medidores[0];
-    const medidorJaLidoNoMes = medidor.leituras.some(
+  const medidorJaLidoNoMes = medidor.leituras.some(
     (leitura) => leitura.mes === month && leitura.ano === year
   );
-  
-
-  const converteMonth = () => {
-    if (currentMonth === month && currentYear === year && 1 < 10) {
-      return month - 1;
-    }
-    return month;
-  };
+  const laterMonth = currentMonth - 1;
 
   const veryMonthfunca = () => {
-    if(medidorJaLidoNoMes) return true
-    if (currentMonth === month && currentYear === year && currentDay <= 10) return true;
-    if (currentMonth === month && currentYear === year && currentDay >= 10) return false;
-    if (currentMonth !== month && currentYear === year ) return false;
-     if (user.is_adm) return false
+    if (medidorJaLidoNoMes) return true;
+    if (currentMonth === month && currentYear === year && currentDay <= 10)
+      return true;
+    if (user.is_adm) return false;
+
+    if (month === laterMonth && currentYear === year && currentDay <= 10)
+      return false;
+
     return true;
   };
   const veryMonth = veryMonthfunca();
 
-  const textBtn = medidorJaLidoNoMes ? "Medição coletada" : currentMonth === month && currentYear === year && currentDay< 10 ? "Medição não liberada" : "Medição"
+  const textBtn = medidorJaLidoNoMes
+    ? "Medição coletada"
+    : currentMonth === month && currentYear === year
+    ? "Medição não liberada"
+    : month === laterMonth && currentYear === year && currentDay <= 10
+    ? "Medição  liberada"
+    : "Medição não liberada";
 
   const handleFinalSubmit = () => {
     const medicao_atual = limparNumero(formData.medicao_atual);
 
-    const veryMonth = converteMonth();
     const new_leitura = {
       medidor_id: medidor.id!,
-      mes: veryMonth,
+      mes: month,
       ano: year,
       leitura_anterior: medidor.ultima_leitura,
       leitura_atual: medicao_atual,
@@ -205,7 +206,6 @@ export function Card({ loja }: { loja: LojaProps }) {
     });
   };
 
-
   const verifiedMedidor = () => {
     if (medidor.leituras[0]?.leitura_atual) {
       return true;
@@ -215,12 +215,7 @@ export function Card({ loja }: { loja: LojaProps }) {
 
   const isMedidorVerified = verifiedMedidor();
 
-
-
-
-
   const nomePrefixo = `${loja.prefixo_loja} - ${loja.numero_loja}`;
- 
 
   return (
     <div
@@ -231,7 +226,10 @@ export function Card({ loja }: { loja: LojaProps }) {
       key={loja.id}
     >
       <div className="w-full flex justify-between ">
-        <span title={loja.nome_loja} className="text-lg font-semibold  max-sm:text-[16px]">
+        <span
+          title={loja.nome_loja}
+          className="text-lg font-semibold  max-sm:text-[16px]"
+        >
           {truncateText(loja.nome_loja, 17)}
         </span>
         <div className="flex gap-2 ">
@@ -291,10 +289,7 @@ export function Card({ loja }: { loja: LojaProps }) {
 
         <Sheet open={isFormSheetOpen} onOpenChange={setIsFormSheetOpen}>
           <SheetTrigger asChild>
-            <Button
-              disabled={veryMonth}
-              className="w-full  max-sm:h-8"
-            >
+            <Button disabled={veryMonth} className="w-full  max-sm:h-8">
               {textBtn}
             </Button>
           </SheetTrigger>
@@ -367,6 +362,7 @@ export function Card({ loja }: { loja: LojaProps }) {
                   <span className="font-semibold text-lg">Medição atual</span>
                   <Input
                     type="number"
+                    required
                     placeholder="Digite a medição"
                     value={formData.medicao_atual || ""}
                     onChange={(e) =>
@@ -375,7 +371,6 @@ export function Card({ loja }: { loja: LojaProps }) {
                         medicao_atual: parseFloat(e.target.value) || 0,
                       })
                     }
-                    required
                   />
                 </div>
 
@@ -385,6 +380,7 @@ export function Card({ loja }: { loja: LojaProps }) {
                     type="file"
                     accept="image/jpeg, image/png, image/webp"
                     onChange={handleFileChange}
+                    required
                   />
                 </div>
 
@@ -473,9 +469,7 @@ export function Card({ loja }: { loja: LojaProps }) {
                   <div className="mt-4">
                     Se sim, clique em **Registrar** para salvar os dados.
                   </div>
-                  <div
-                    className="text-gray-50 flex-col flex h-full "
-                  >
+                  <div className="text-gray-50 flex-col flex h-full ">
                     {isPending ? (
                       <ButtonLoading />
                     ) : (

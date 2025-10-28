@@ -17,7 +17,7 @@ export async function signUp({
 
   try {
     if (!nome_completo || !cpf || !matricula || !funcao) {
-      throw new Error("Por favor, preencha todos os campos.");
+      throw new Error("Preencha todos os campos.");
     }
 
     const { data: existingUser, error: fetchError } = await supabase

@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     // 1. Validar se os campos obrigatórios estão presentes
     if (!nome_completo || !cpf || !matricula || !funcao) {
       return NextResponse.json(
-        { error: "Por favor, preencha todos os campos obrigatórios." },
+        { error: "Preencha todos os campos obrigatórios." },
         { status: 400 }
       );
     }

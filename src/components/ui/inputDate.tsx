@@ -34,11 +34,13 @@ export function InputDate() {
   };
 
   return (
-    <div className={`flex flex-col gap-2 ml-auto text-end ${
-            pathName !== "/medicao" && "hidden"
-          }`} >
+    <div
+      className={`flex flex-col gap-2 ml-auto text-end w-full ${
+        pathName !== "/medicao" && "hidden"
+      }`}
+    >
       <label
-        htmlFor="month" 
+        htmlFor="month"
         className="text-sm font-medium text-gray-700 dark:text-gray-50 max-sm:hidden"
       >
         Selecione o mês e o ano
@@ -49,7 +51,7 @@ export function InputDate() {
         name="month"
         value={`${year}-${String(month).padStart(2, "0")}`}
         max={maxDate}
-        className="max-sm:h-10 flex justify-end border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-800 bg-white dark:bg-[#151526] dark:text-gray-50"
+        className="max-sm:h-10 w-full  flex justify-end border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-800 bg-white dark:bg-[#151526] dark:text-gray-50"
         onChange={handleChange}
       />
     </div>
