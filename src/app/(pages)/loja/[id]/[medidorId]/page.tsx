@@ -472,7 +472,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
                 type="submit"
                 variant={"default"}
                 disabled={edit}
-                className="w-full mt-4"
+                className="w-full mt-4 h-10"
               >
                 {isPending ? (
                   <>

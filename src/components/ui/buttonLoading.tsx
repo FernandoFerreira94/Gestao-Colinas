@@ -6,7 +6,7 @@ export function ButtonLoading() {
   return (
     <Button className="w-full" disabled>
       <Loader2Icon className="animate-spin" />
-      Please wait
+      Carregando...
     </Button>
   );
 }
