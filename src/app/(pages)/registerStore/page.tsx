@@ -306,6 +306,7 @@ export default function RegisterStore() {
                     required
                     id="ultima_leitura_agua"
                     name="ultima_leitura_agua"
+                    step="0.01"
                   />
                   <Label htmlFor="picture">Foto medidor</Label>
                   <Input id="picture" type="file" />
@@ -351,6 +352,7 @@ export default function RegisterStore() {
                     required
                     id="ultima_leitura_gas"
                     name="ultima_leitura_gas"
+                    step="0.01"
                   />
                   <Label htmlFor="picture">Foto medidor</Label>
                   <Input id="picture" type="file" />

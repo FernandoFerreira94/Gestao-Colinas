@@ -384,6 +384,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
                 }
                 onChange={(e) => setLeitura_atual(e.target.value)}
                 type="text"
+                step="0.01"
               />
             </div>
             {data.medidor.numero_relogio !== "BUSWAY" && (

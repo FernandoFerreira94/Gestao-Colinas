@@ -361,6 +361,7 @@ export function Card({ loja }: { loja: LojaProps }) {
                     type="number"
                     required
                     placeholder="Digite a medição"
+                    step="0.01"
                     value={formData.medicao_atual || ""}
                     onChange={(e) =>
                       setFormData({
