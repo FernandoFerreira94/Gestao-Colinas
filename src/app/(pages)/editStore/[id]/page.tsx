@@ -98,7 +98,7 @@ export default function EditStore({ params }: DetalhesProps) {
           ...initialState, // Usa o estado inicial para resetar campos não preenchidos
           id: medidorData.id,
           detalhes: medidorData.detalhes || "",
-          numero_relogio: medidorData.numero_relogio || "",
+          numero_relogio: medidorData.numero_relogio.toUpperCase() || "",
           localidade: medidorData.localidade || "",
           quadro_distribuicao: medidorData.quadro_distribuicao || "",
           tipo_medicao: medidorData.tipo_medicao as "Energia" | "Agua" | "Gas",

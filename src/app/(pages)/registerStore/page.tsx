@@ -241,6 +241,7 @@ export default function RegisterStore() {
                     required
                     id="numero_relogio_energia"
                     name="numero_relogio_energia"
+                    className="uppercase"
                   />
                   <Label>Localizaçao relogio</Label>
                   <Localidade
@@ -293,6 +294,7 @@ export default function RegisterStore() {
                     required
                     id="numero_relogio_agua"
                     name="numero_relogio_agua"
+                    className="uppercase"
                   />
                   <Label>Localizaçao relogio</Label>
                   <Localidade
@@ -339,6 +341,7 @@ export default function RegisterStore() {
                     required
                     id="numero_relogio_gas"
                     name="numero_relogio_gas"
+                    className="uppercase"
                   />
                   <Label>Localizaçao relogio</Label>
                   <Localidade
