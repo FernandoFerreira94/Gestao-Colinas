@@ -26,7 +26,7 @@ export function Relogio({
         required
         value={medidor.numero_relogio || ""}
         onChange={(e) =>
-          onChange({ ...medidor, numero_relogio: e.target.value })
+          onChange({ ...medidor, numero_relogio: e.target.value.toUpperCase() })
         }
         className="uppercase"
       />
