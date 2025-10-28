@@ -36,7 +36,7 @@ export function InputDate() {
   return (
     <div
       className={`flex flex-col gap-2 ml-auto text-end w-full ${
-        pathName !== "/medicao" && "hidden"
+        pathName !== "/medicao" && "max-sm:hidden"
       }`}
     >
       <label
