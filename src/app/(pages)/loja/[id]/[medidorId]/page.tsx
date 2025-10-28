@@ -232,7 +232,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
     <Content
       title={`${data.loja.nome_loja} - ${data.loja.prefixo_loja} ${data.loja.numero_loja}  ${month}/${year}`}
     >
-      <main className="flex  items-start pt-8 max-sm:pt-4 gap-32 w-11/12 max-sm:flex-col max-sm:w-full">
+      <main className="flex  items-start pt-8 max-sm:pt-4 gap-32 w-2/5 max-sm:flex-col max-sm:w-full">
         <section className="w-full ">
           <div className="flex items-center  space-x-2 ">
             {is_admin && (
