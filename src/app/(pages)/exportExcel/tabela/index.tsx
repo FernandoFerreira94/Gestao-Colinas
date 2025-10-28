@@ -142,8 +142,8 @@ export function Tabela() {
               })
               .map((item) => {
                 const porcentagem = calcularDiferencaPercentualConsumo(
-                  item.medidores[0]?.leituras[0]?.consumo_mensal || 0,
-                  item.medidores[0]?.leituras[1]?.consumo_mensal || 0
+                  item.medidores?.[0]?.leituras[0]?.consumo_mensal || 0,
+                  item.medidores?.[0]?.leituras[1]?.consumo_mensal || 0
                 );
 
                 const stylePorcentagem = () => {
@@ -171,7 +171,8 @@ export function Tabela() {
                     <TableCell className="text-start relative">
                       <Link
                         title={
-                          item.medidores[0]?.leituras[0]?.detalhes_leitura || ""
+                          item.medidores?.[0]?.leituras[0]?.detalhes_leitura ||
+                          ""
                         }
                         href={`/loja/${item.id}/${item.medidores?.[0].id}`}
                         className="hover:text-blue-500 w-full"
@@ -181,26 +182,27 @@ export function Tabela() {
                     </TableCell>
 
                     <TableCell className=" text-center ">
-                      {item.medidores[0].numero_relogio}
+                      {item.medidores?.[0].numero_relogio}
                     </TableCell>
                     <TableCell className="font-semibold">
-                      {item.medidores[0]?.leituras[1]?.leitura_atual || "-- --"}
+                      {item.medidores?.[0]?.leituras[1]?.leitura_atual ||
+                        "-- --"}
                     </TableCell>
                     <TableCell>
                       {" "}
-                      {item.medidores[0]?.leituras[1]?.leitura_anterior ||
+                      {item.medidores?.[0]?.leituras[1]?.leitura_anterior ||
                         "-- --"}
                     </TableCell>
                     {typeMedicao === "Agua" && (
                       <>
                         <TableCell className="font-semibold">
                           {" "}
-                          {item.medidores[0]?.leituras[1]?.consumo_mensal ||
+                          {item.medidores?.[0]?.leituras[1]?.consumo_mensal ||
                             "-- --"}
                         </TableCell>
                         {/* CONSUMO MÊS REF (Valor do Consumo MENSAL do MÊS DE REFERÊNCIA) */}
                         <TableCell>
-                          {item.medidores[0]?.leituras[0]?.consumo_mensal ||
+                          {item.medidores?.[0]?.leituras[0]?.consumo_mensal ||
                             "-- --"}
                         </TableCell>
                         <TableCell
@@ -212,12 +214,12 @@ export function Tabela() {
                     )}
                     <TableCell className="font-semibold">
                       {" "}
-                      {item.medidores[0]?.leituras[1]?.consumo_mensal ||
+                      {item.medidores?.[0]?.leituras[1]?.consumo_mensal ||
                         "-- --"}
                     </TableCell>
                     {/* CONSUMO MÊS REF (Valor do Consumo MENSAL do MÊS DE REFERÊNCIA) */}
                     <TableCell>
-                      {item.medidores[0]?.leituras[0]?.consumo_mensal ||
+                      {item.medidores?.[0]?.leituras[0]?.consumo_mensal ||
                         "-- --"}
                     </TableCell>
                     <TableCell
