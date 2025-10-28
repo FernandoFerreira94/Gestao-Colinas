@@ -30,11 +30,11 @@ export default function ExportExcel() {
       const vacantStores = data.filter((item) => item.ativa === false);
 
       const activeMetersWithReadings = activeStores.filter(
-        (item) => item.medidores[0].leituras[0]
+        (item) => item?.medidores?.[0].leituras[0]
       ).length;
 
       const vacantMetersWithReadings = vacantStores.filter(
-        (item) => item.medidores[0].leituras[0]
+        (item) => item?.medidores?.[0].leituras[0]
       ).length;
 
       setActiveLeituras(activeMetersWithReadings);

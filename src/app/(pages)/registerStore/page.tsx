@@ -89,7 +89,7 @@ export default function RegisterStore() {
       tem_agua: agua,
       tem_gas: gas,
       prefixo_loja: prefixo,
-      created_at: new Date("2025-06-01").toISOString(),
+      created_at: new Date("2025-08-01").toISOString(),
     };
 
     const medidores = [];
@@ -100,7 +100,7 @@ export default function RegisterStore() {
         numero_relogio: formData.get("numero_relogio_energia") as string,
         localidade: localidade_energia,
         quadro_distribuicao: formData.get("quadro_distribuicao") as string,
-        data_instalacao: new Date("2025-06-01").toISOString(),
+        data_instalacao: new Date("2025-08-01").toISOString(),
         ultima_leitura: parseFloat(
           formData.get("ultima_leitura_energia") as string
         ),
@@ -112,7 +112,7 @@ export default function RegisterStore() {
         tipo_medicao: "Agua",
         numero_relogio: formData.get("numero_relogio_agua") as string,
         localidade: localidade_agua,
-        data_instalacao: new Date("2025-06-01").toISOString(),
+        data_instalacao: new Date("2025-08-01").toISOString(),
         quadro_distribuicao: null,
         ultima_leitura: parseFloat(
           formData.get("ultima_leitura_agua") as string
@@ -126,7 +126,7 @@ export default function RegisterStore() {
         tipo_medicao: "Gas",
         numero_relogio: formData.get("numero_relogio_gas") as string,
         localidade: localidade_gas,
-        data_instalacao: new Date("2025-06-01").toISOString(),
+        data_instalacao: new Date("2025-08-01").toISOString(),
         quadro_distribuicao: null,
         ultima_leitura: parseFloat(
           formData.get("ultima_leitura_gas") as string
