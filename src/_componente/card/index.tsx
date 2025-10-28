@@ -173,6 +173,8 @@ export function Card({ loja }: { loja: LojaProps }) {
     ? "Medição não liberada"
     : month === laterMonth && currentYear === year && currentDay <= 10
     ? "Medição  liberada"
+    : user.is_adm
+    ? "Medição"
     : "Medição não liberada";
 
   const handleFinalSubmit = () => {
