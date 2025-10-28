@@ -40,7 +40,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
   const router = useRouter();
   const { id, medidorId } = resolvedParams;
   const { month, year } = useAppContext();
-  const [edit, setEdit] = useState(true);
+  const [edit, setEdit] = useState(false);
   const [numero_relogio, setNumero_relogio] = useState("");
   const [quadroDistribuicao, setQuadroDistribuicao] = useState("");
   const [localidade, setLocalidade] = useState("");
