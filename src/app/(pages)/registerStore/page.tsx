@@ -90,7 +90,6 @@ export default function RegisterStore() {
       tem_gas: gas,
       prefixo_loja: prefixo,
       created_at: new Date("2025-06-01").toISOString(),
-      medidores: [],
     };
 
     const medidores = [];
@@ -135,7 +134,8 @@ export default function RegisterStore() {
         detalhes: formData.get("detalhe_gas") as string,
       });
     }
-
+    console.log(loja);
+    console.log(medidores);
     mutate({ loja, medidores });
   }
 

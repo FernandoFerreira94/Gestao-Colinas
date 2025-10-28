@@ -61,7 +61,7 @@ export interface LojaProps {
   tem_agua: boolean;
   tem_gas: boolean;
   medidor?: MedidorComLeitura[];
-  medidores: MedidorComLeitura[];
+  medidores?: MedidorComLeitura[];
 }
 
 export interface LojaComLeiturasCombinadas {
