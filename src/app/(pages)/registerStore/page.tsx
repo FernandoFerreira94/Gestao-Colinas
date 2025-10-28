@@ -136,7 +136,7 @@ export default function RegisterStore() {
     }
     console.log(loja);
     console.log(medidores);
-    // mutate({ loja, medidores });
+    mutate({ loja, medidores });
   }
 
   return (
