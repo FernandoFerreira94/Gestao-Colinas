@@ -28,6 +28,7 @@ export function Relogio({
         onChange={(e) =>
           onChange({ ...medidor, numero_relogio: e.target.value })
         }
+        className="uppercase"
       />
 
       <Label>Localizaçao relogio</Label>
