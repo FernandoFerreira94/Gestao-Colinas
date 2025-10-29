@@ -150,7 +150,7 @@ export function SideBar({
           <>
             <li
               title="Cadastrar loja"
-              className={`flex items-center cursor-pointer hover:bg-white/10 ${
+              className={`flex items-center cursor-pointer hover:bg-white/10 max-sm:hidden ${
                 pathName === "/registerStore" && "bg-white/20"
               } ${
                 isMobile

@@ -75,13 +75,14 @@ export function DateTipoMedicao() {
       <div className="w-9/12 h-full flex items-end relative mr-auto max-sm:w-full">
         <Input
           placeholder="Nome loja e numero medidor"
-          className="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-300  max-sm:text-sm"
+          className="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-300  "
           type="search"
           onChange={(e) => setSearchQuery(e.target.value)}
+          inputMode="numeric"
         />
         <MdSearch
           size={20}
-          className="absolute left-3 top-9.5 text-gray-500 max-sm:top-3"
+          className="absolute left-3 top-10.5 text-gray-500 max-sm:top-3"
         />
       </div>
       <div className="flex gap-4 w-full h-full  justify-end">

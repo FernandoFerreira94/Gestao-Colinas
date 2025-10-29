@@ -51,7 +51,7 @@ export function InputDate() {
         name="month"
         value={`${year}-${String(month).padStart(2, "0")}`}
         max={maxDate}
-        className="max-sm:h-10 w-full  flex justify-end border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-800 bg-white dark:bg-[#151526] dark:text-gray-50"
+        className="max-sm:h-10 w-full flex justify-end border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-800 bg-white dark:bg-[#151526] dark:text-gray-50"
         onChange={handleChange}
       />
     </div>
