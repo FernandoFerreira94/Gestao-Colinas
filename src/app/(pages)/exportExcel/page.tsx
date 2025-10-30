@@ -72,7 +72,7 @@ export default function ExportExcel() {
           Vagos ( {vacanLeitura} / {vacantCount} )
         </span>
       </div>
-      <div className=" w-full h-full ">
+      <div className=" w-full h-full pr-16">
         <Tabela />
       </div>
     </Content>

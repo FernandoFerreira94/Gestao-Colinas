@@ -71,11 +71,11 @@ export function Tabela() {
             </TableHead>
             {typeMedicao === "Agua" && (
               <>
-                <TableHead className="px-8 border-x-2 border-gray-100">
+                <TableHead className="px-8 border-x-2 border-gray-100 text-center">
                   {" "}
                   mês ref
                 </TableHead>
-                <TableHead className="px-8 border-x-2 border-gray-100">
+                <TableHead className="px-8 border-x-2 border-gray-100 text-center">
                   {" "}
                   mês anterior
                 </TableHead>
@@ -84,11 +84,11 @@ export function Tabela() {
                 </TableHead>
               </>
             )}
-            <TableHead className="px-8 border-x-2 border-gray-100">
+            <TableHead className="px-8 border-x-2 border-gray-100 text-center">
               {" "}
               mês ref
             </TableHead>
-            <TableHead className="px-8 border-x-2 border-gray-100">
+            <TableHead className="px-8 border-x-2 border-gray-100 text-center">
               {" "}
               mês anterior
             </TableHead>
@@ -142,8 +142,8 @@ export function Tabela() {
               })
               .map((item) => {
                 const porcentagem = calcularDiferencaPercentualConsumo(
-                  item.medidores?.[0]?.leituras[0]?.consumo_mensal || 0,
-                  item.medidores?.[0]?.leituras[1]?.consumo_mensal || 0
+                  item.medidores?.[0]?.leituras[1]?.consumo_mensal || 0,
+                  item.medidores?.[0]?.leituras[0]?.consumo_mensal || 0
                 );
 
                 const stylePorcentagem = () => {
@@ -171,7 +171,7 @@ export function Tabela() {
                     <TableCell className="text-start relative">
                       <Link
                         title={
-                          item.medidores?.[0]?.leituras[0]?.detalhes_leitura ||
+                          item.medidores?.[0]?.leituras[1]?.detalhes_leitura ||
                           ""
                         }
                         href={`/loja/${item.id}/${item.medidores?.[0].id}`}
@@ -184,7 +184,7 @@ export function Tabela() {
                     <TableCell className=" text-center ">
                       {item.medidores?.[0].numero_relogio}
                     </TableCell>
-                    <TableCell className="font-semibold">
+                    <TableCell className="font-semibold bg-slate-500/50">
                       {item.medidores?.[0]?.leituras[1]?.leitura_atual ||
                         "-- --"}
                     </TableCell>
