@@ -78,7 +78,6 @@ export function DateTipoMedicao() {
           className="w-full pl-10 pr-4 py-3 rounded-2xl border border-gray-300  "
           type="search"
           onChange={(e) => setSearchQuery(e.target.value)}
-          inputMode="numeric"
         />
         <MdSearch
           size={20}
