@@ -227,6 +227,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
         toast.error("Erro ao baixar a imagem. Tente novamente.");
       });
   };
+  console.log(data);
 
   return (
     <Content
