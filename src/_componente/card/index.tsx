@@ -266,7 +266,8 @@ export function Card({ loja }: { loja: LojaProps }) {
         <span>Leitura atual</span>
         <span>{medidor.leituras[0]?.leitura_atual || "--- ---"}</span>
       </div>
-      <div className="w-full flex justify-between max-sm:text-sm max-sm:hidden">
+
+      <div className="w-full flex justify-between max-sm:text-sm ">
         <span>Consumo</span>
         <span>
           {medidor.leituras[0]?.consumo_mensal}{" "}

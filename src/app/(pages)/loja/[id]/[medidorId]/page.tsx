@@ -233,8 +233,8 @@ export default function InfoLoja({ params }: DetalhesProps) {
     <Content
       title={`${data.loja.nome_loja} - ${data.loja.prefixo_loja} ${data.loja.numero_loja}  ${month}/${year}`}
     >
-      <main className="flex  items-start pt-8 max-sm:pt-4 gap-32 w-3/5 max-sm:flex-col max-sm:w-full">
-        <section className="w-full ">
+      <main className="flex  items-start pt-8 max-sm:pt-4 gap-32 pr-80 w-full max-sm:flex-col max-lg:pr-20  max-lg:flex-col">
+        <section className="w-2/7 max-lg:w-full  ">
           <div className="flex items-center  space-x-2 ">
             {is_admin && (
               <>
@@ -486,7 +486,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
             )}
           </form>
         </section>
-        <div className="max-sm:hidden">
+        <div className="max-sm:hidden w-3/5 h-full max-lg:w-full">
           <Chart data={data} />
         </div>
       </main>
