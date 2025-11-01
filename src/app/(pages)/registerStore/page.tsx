@@ -30,6 +30,7 @@ export default function RegisterStore() {
   const [agua, setAgua] = useState(false);
   const [gas, setGas] = useState(false);
   const [prefixo, setPrefixo] = useState("NT");
+  const [digito, setDigito] = useState(0);
 
   const [localidade_energia, setLocalidade_energia] = useState("");
   const [localidade_agua, setLocalidade_agua] = useState("");
@@ -96,6 +97,7 @@ export default function RegisterStore() {
 
     if (energia) {
       medidores.push({
+        dig: digito,
         tipo_medicao: "Energia",
         numero_relogio: formData.get("numero_relogio_energia") as string,
         localidade: localidade_energia,
@@ -109,6 +111,7 @@ export default function RegisterStore() {
     }
     if (agua) {
       medidores.push({
+        dig: digito,
         tipo_medicao: "Agua",
         numero_relogio: formData.get("numero_relogio_agua") as string,
         localidade: localidade_agua,
@@ -123,6 +126,7 @@ export default function RegisterStore() {
 
     if (gas) {
       medidores.push({
+        dig: digito,
         tipo_medicao: "Gas",
         numero_relogio: formData.get("numero_relogio_gas") as string,
         localidade: localidade_gas,
