@@ -22,8 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useAppContext } from "@/context/useAppContext";
 import { useCreateLeitura } from "@/hook/Create/useCreateLeitura";
 import { useFetchUser } from "@/hook/Fetch/useFetchUser";
-//Action
-import { formatarFracao } from "@/actives/FormatValor";
+import { formatarLeitura } from "@/actives/FormataLeitura";
 import { truncateText } from "@/actives/truncateText";
 //TYPE
 import type { LojaProps } from "@/types";
@@ -33,7 +32,7 @@ import { useTheme } from "next-themes";
 import Cookies from "js-cookie";
 
 const date = new Date();
-const currentDay = date.getDate();
+const currentDay = 29;
 const currentMonth = date.getMonth() + 1;
 const currentYear = date.getFullYear();
 const currentDate = `${currentDay}/${currentMonth}/${currentYear}`;
@@ -96,12 +95,7 @@ export function Card({ loja }: { loja: LojaProps }) {
       toast.info("Preencha a medição atual com um valor válido.");
       return;
     }
-    /*
-    if (!formData.foto) {
-      toast.info("Insira uma foto do medidor.");
-      return;
-    }
-*/
+
     if (medidor.numero_relogio === "BUSWAY") {
       setIsFormSheetOpen(false);
       setIsConfirmSheetOpen(true);
@@ -160,7 +154,11 @@ export function Card({ loja }: { loja: LojaProps }) {
       return true;
     if (user.is_adm) return false;
 
-    if (month === laterMonth && currentYear === year && currentDay <= 10)
+    if (
+      month === laterMonth &&
+      currentYear === year &&
+      (currentDay <= 10 || currentDay >= 29)
+    )
       return false;
 
     return true;
@@ -256,21 +254,29 @@ export function Card({ loja }: { loja: LojaProps }) {
       <div className="w-full flex justify-between max-sm:text-sm">
         <span>Leitura mês anterior </span>
         <span>
-          {" "}
           {medidor.leituras[0]?.leitura_anterior
-            ? medidor.leituras[0]?.leitura_anterior
-            : medidor.ultima_leitura}
+            ? formatarLeitura(
+                medidor.leituras[0]?.leitura_anterior,
+                medidor.dig
+              )
+            : formatarLeitura(medidor.ultima_leitura, medidor.dig)}
         </span>
       </div>
       <div className="w-full flex justify-between max-sm:text-sm">
         <span>Leitura atual</span>
-        <span>{medidor.leituras[0]?.leitura_atual || "--- ---"}</span>
+        <span>
+          {formatarLeitura(medidor.leituras[0]?.leitura_atual, medidor.dig) ||
+            "--- ---"}
+        </span>
       </div>
 
       <div className="w-full flex justify-between max-sm:text-sm ">
         <span>Consumo</span>
         <span>
-          {medidor.leituras[0]?.consumo_mensal}{" "}
+          {formatarLeitura(
+            medidor.leituras[0]?.consumo_mensal || 0,
+            medidor.dig
+          )}{" "}
           {medidor.tipo_medicao === "Energia" ? "kWh" : "m3"}
         </span>
       </div>

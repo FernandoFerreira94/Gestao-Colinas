@@ -19,7 +19,6 @@ import {
 import { useFetchLojaSingle } from "@/hook/Fetch/useFetchLojaSingle";
 import { DetalhesProps, LeituraProps } from "@/types";
 import { useFetchUser } from "@/hook/Fetch/useFetchUser";
-import { formatarMedicao } from "@/actives/FormatMedicao";
 import { useEditLeituraMedidor } from "@/hook/Update/useEditLeituraMedidor";
 import { Input } from "@/components/ui/input";
 import { Localidade } from "@/_componente/dateTipoMedicao/localidade";
@@ -34,6 +33,7 @@ import { PrefixoLoja } from "../../component/prefixoLoja";
 import { Chart } from "../../component/Chart";
 import { IoCloudDownloadOutline, IoBackspaceOutline } from "react-icons/io5";
 import { limparNumero } from "@/actives/LimpaMedicao";
+import { formatarLeitura } from "@/actives/FormataLeitura";
 
 export default function InfoLoja({ params }: DetalhesProps) {
   const resolvedParams = React.use(params);
@@ -45,6 +45,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
   const [quadroDistribuicao, setQuadroDistribuicao] = useState("");
   const [localidade, setLocalidade] = useState("");
   const [leitura_atual, setLeitura_atual] = useState("");
+  const [digito, setDigito] = useState(0);
   const [detalheLeitura, setDetalheLeitura] = useState("");
   const [ativa, setAtiva] = useState(false);
   const [nome_loja, setNome_loja] = useState("");
@@ -79,8 +80,12 @@ export default function InfoLoja({ params }: DetalhesProps) {
   useEffect(() => {
     if (data) {
       setNumero_relogio(data.medidor?.numero_relogio);
+      setDigito(data.medidor.dig);
       setLeitura_atual(
-        leituraFiltradaMonth[0]?.leitura_atual || data.medidor.ultima_leitura
+        formatarLeitura(
+          leituraFiltradaMonth[0]?.leitura_atual || data.medidor.ultima_leitura,
+          data.medidor.dig
+        ) || ""
       );
 
       setDetalheLeitura(
@@ -119,6 +124,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
       quadro_distribuicao: quadroDistribuicao,
       ultima_leitura: medicao_atual,
       detalhes: detalheMedidor,
+      dig: digito,
     };
 
     const dataLoja = {
@@ -233,8 +239,8 @@ export default function InfoLoja({ params }: DetalhesProps) {
     <Content
       title={`${data.loja.nome_loja} - ${data.loja.prefixo_loja} ${data.loja.numero_loja}  ${month}/${year}`}
     >
-      <main className="flex  items-start pt-8 max-sm:pt-4 gap-32 pr-80 w-full max-sm:flex-col max-lg:pr-20  max-lg:flex-col">
-        <section className="w-2/7 max-lg:w-full  ">
+      <main className="flex  items-start pt-8 max-sm:pt-4 gap-32 pr-80 w-full max-sm:flex-col max-xl:pr-20  max-xl:flex-col max-xl:gap-0">
+        <section className="w-3/7 max-xl:w-full  ">
           <div className="flex items-center  space-x-2 ">
             {is_admin && (
               <>
@@ -330,6 +336,20 @@ export default function InfoLoja({ params }: DetalhesProps) {
               />
             </div>
             <div className="flex flex-col gap-2">
+              <Label>Digito</Label>
+              <Input
+                type="number"
+                disabled={edit}
+                value={digito}
+                onChange={(e) => setDigito(Number(e.target.value))}
+                className={`border-3 ${
+                  edit
+                    ? "border-transparent "
+                    : "border-gray-700 dark:border-gray-300 "
+                }`}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
               <Label>localidade relogio</Label>
               <Localidade
                 key={data.medidor.localidade}
@@ -361,8 +381,11 @@ export default function InfoLoja({ params }: DetalhesProps) {
                   : "Consumo mês anterior"}
               </Label>
               <span className="dark:bg-[#151526] border py-2 px-4 rounded-md bg-white">
-                {leituraFiltradaMonth[0]?.leitura_anterior ||
-                  data?.medidor?.ultima_leitura}
+                {formatarLeitura(
+                  leituraFiltradaMonth[0]?.leitura_anterior ||
+                    data?.medidor?.ultima_leitura,
+                  data?.medidor?.dig
+                ) || "Sem leitura"}
               </span>{" "}
             </div>
             <div className="flex flex-col gap-2">
@@ -380,8 +403,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
                     : "border-gray-700 dark:border-gray-300 "
                 }`}
                 placeholder={
-                  formatarMedicao(leituraFiltradaMonth[0]?.leitura_atual) ||
-                  "Sem leitura"
+                  leituraFiltradaMonth[0]?.leitura_atual || "Sem leitura"
                 }
                 onChange={(e) => setLeitura_atual(e.target.value)}
                 type="text"
@@ -392,8 +414,10 @@ export default function InfoLoja({ params }: DetalhesProps) {
               <div className="flex flex-col gap-2">
                 <Label>Consumo</Label>
                 <span className="dark:bg-[#151526] border py-2 px-4 rounded-md bg-white">
-                  {formatarMedicao(leituraFiltradaMonth[0]?.consumo_mensal) ||
-                    "0"}{" "}
+                  {formatarLeitura(
+                    leituraFiltradaMonth[0]?.consumo_mensal,
+                    data?.medidor?.dig
+                  ) || "0"}{" "}
                   {data?.medidor?.tipo_medicao === "Energia" ? "kWh" : "M3"}
                 </span>{" "}
               </div>
@@ -486,7 +510,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
             )}
           </form>
         </section>
-        <div className="max-sm:hidden w-3/5 h-full max-lg:w-full">
+        <div className="max-sm:hidden w-3/5 h-full max-xl:w-full">
           <Chart data={data} />
         </div>
       </main>

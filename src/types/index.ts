@@ -107,6 +107,7 @@ export interface Medidores {
   detalhes: string;
   quadro_distribuicao?: string | null;
   data_instalacao?: string;
+  dig: number;
 }
 export interface MedidorComLeitura {
   id?: string;
@@ -117,6 +118,7 @@ export interface MedidorComLeitura {
   detalhes: string;
   data_instalacao: string;
   leituras: LeituraProps[];
+  dig: number;
 }
 
 export interface DetalhesProps {
