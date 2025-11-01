@@ -75,6 +75,7 @@ export function useUpdateLojaAndMedidores() {
         if (isActive) {
           const payload: MedidorPayload = {
             id: currentMedidorState.id,
+            dig: currentMedidorState.dig,
             loja_id: lojaId,
             detalhes: currentMedidorState.detalhes,
             numero_relogio: currentMedidorState.numero_relogio,
