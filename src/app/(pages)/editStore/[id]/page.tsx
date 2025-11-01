@@ -21,6 +21,7 @@ import { PrefixoLoja } from "../../loja/component/prefixoLoja";
 import { Relogio } from "../componente/relogio";
 
 const initialStateMedidor: Medidores = {
+  dig:0,
   detalhes: "",
   numero_relogio: "",
   localidade: "",
