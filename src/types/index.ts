@@ -174,6 +174,7 @@ export interface MedidorPayload {
   quadro_distribuicao?: string | null; // Opcional
   tipo_medicao: string; // Tipo string literal para segurança
   ultima_leitura: number;
+  dig: number;
 }
 
 export interface CustoProps {
