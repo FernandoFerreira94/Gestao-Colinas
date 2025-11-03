@@ -11,7 +11,7 @@ import {
 import { MdSearch } from "react-icons/md";
 import { InputDate } from "@/components/ui/inputDate";
 import { useAppContext } from "@/context/useAppContext";
-import { useEffect } from "react"; // 👈 Importe useEffect
+import { useEffect } from "react"; 
 import { Localidade } from "./localidade";
 
 export function DateTipoMedicao() {

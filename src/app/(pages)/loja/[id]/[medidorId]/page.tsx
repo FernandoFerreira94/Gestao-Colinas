@@ -424,12 +424,12 @@ export default function InfoLoja({ params }: DetalhesProps) {
             )}
             <div className="flex flex-col gap-2">
               <Label>Foto do relogio</Label>
-              <div className="flex items-center  gap-12">
+              <div className="flex items-center flex-col  gap-12">
                 {leituraFiltradaMonth[0]?.foto_url || previewUrl ? (
                   <div
                     // ⭐️ Adiciona o clique para abrir o modal
                     onClick={() => setIsModalOpen(true)}
-                    className="cursor-pointer flex  items-center gap-12 "
+                    className="cursor-pointer flex flex-col items-center gap-4 "
                   >
                     <Image
                       src={previewUrl || leituraFiltradaMonth[0]?.foto_url}
@@ -452,6 +452,12 @@ export default function InfoLoja({ params }: DetalhesProps) {
                         <span>Donwload</span>
                       </div>
                     )}
+                    <Input
+                      type="file"
+                      accept="image/jpeg,image/jpg, image/png, image/webp"
+                      onChange={handleFileChange}
+                      disabled={edit}
+                    />
                   </div>
                 ) : (
                   <Input
@@ -461,8 +467,6 @@ export default function InfoLoja({ params }: DetalhesProps) {
                     disabled={edit}
                   />
                 )}
-                {/* Input File permanece aqui */}
-                {!edit && <></>}
               </div>
             </div>
 

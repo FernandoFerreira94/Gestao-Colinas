@@ -16,8 +16,8 @@ export async function uploadImageToSupabase(
   const fileName = `${safeStoreName}/${folderName}/${Date.now()}.jpg`;
 
   const options = {
-    maxSizeMB: 1,
-    maxWidthOrHeight: 1920,
+    maxSizeMB: 0.05,
+    maxWidthOrHeight: 720,
     useWebWorker: true,
     fileType: "image/jpeg",
   };

@@ -51,6 +51,7 @@ export function Chart({ data }: { data: LojaComLeiturasCombinadas }) {
       const dateB = new Date(b.ano, b.mes - 1, 1);
       return dateA.getTime() - dateB.getTime();
     });
+    
 
     const lastSixLeituras = sortedLeituras.slice(-6);
     chartData = lastSixLeituras.map((leitura) => ({

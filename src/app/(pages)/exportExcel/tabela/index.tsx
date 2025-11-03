@@ -12,6 +12,7 @@ import { calcularDiferencaPercentualConsumo } from "../calculoTable/action/Difer
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useAppContext } from "@/context/useAppContext";
 import Link from "next/link";
+import { formatarLeitura } from "@/actives/FormataLeitura";
 
 export function Tabela() {
   const { month, year, typeMedicao } = useAppContext();
@@ -185,25 +186,39 @@ export function Tabela() {
                       {item.medidores?.[0].numero_relogio}
                     </TableCell>
                     <TableCell className="font-semibold bg-slate-500/50">
-                      {item.medidores?.[0]?.leituras[1]?.leitura_atual ||
-                        "-- --"}
+                      {formatarLeitura(
+                        Number(item.medidores?.[0]?.leituras[1]?.leitura_atual),
+                        Number(item.medidores?.[0]?.dig)
+                      ) || "-- --"}
                     </TableCell>
                     <TableCell>
                       {" "}
-                      {item.medidores?.[0]?.leituras[1]?.leitura_anterior ||
-                        "-- --"}
+                      {formatarLeitura(
+                        Number(
+                          item.medidores?.[0]?.leituras[1]?.leitura_anterior
+                        ),
+                        Number(item.medidores?.[0]?.dig)
+                      ) || "-- --"}
                     </TableCell>
                     {typeMedicao === "Agua" && (
                       <>
                         <TableCell className="font-semibold">
                           {" "}
-                          {item.medidores?.[0]?.leituras[1]?.consumo_mensal ||
-                            "-- --"}
+                          {formatarLeitura(
+                            Number(
+                              item.medidores?.[0]?.leituras[1]?.consumo_mensal
+                            ),
+                            Number(item.medidores?.[0]?.dig)
+                          ) || "-- --"}
                         </TableCell>
                         {/* CONSUMO MÊS REF (Valor do Consumo MENSAL do MÊS DE REFERÊNCIA) */}
                         <TableCell>
-                          {item.medidores?.[0]?.leituras[0]?.consumo_mensal ||
-                            "-- --"}
+                          {formatarLeitura(
+                            Number(
+                              item.medidores?.[0]?.leituras[0]?.consumo_mensal
+                            ),
+                            Number(item.medidores?.[0]?.dig)
+                          ) || "-- --"}
                         </TableCell>
                         <TableCell
                           className={`${stylePorcentagem()} font-semibold`}
@@ -214,13 +229,21 @@ export function Tabela() {
                     )}
                     <TableCell className="font-semibold">
                       {" "}
-                      {item.medidores?.[0]?.leituras[1]?.consumo_mensal ||
-                        "-- --"}
+                      {formatarLeitura(
+                        Number(
+                          item.medidores?.[0]?.leituras[1]?.consumo_mensal
+                        ),
+                        Number(item.medidores?.[0]?.dig)
+                      ) || "-- --"}
                     </TableCell>
                     {/* CONSUMO MÊS REF (Valor do Consumo MENSAL do MÊS DE REFERÊNCIA) */}
                     <TableCell>
-                      {item.medidores?.[0]?.leituras[0]?.consumo_mensal ||
-                        "-- --"}
+                      {formatarLeitura(
+                        Number(
+                          item.medidores?.[0]?.leituras[0]?.consumo_mensal
+                        ),
+                        Number(item.medidores?.[0]?.dig)
+                      ) || "-- --"}
                     </TableCell>
                     <TableCell
                       className={`${stylePorcentagem()} font-semibold`}

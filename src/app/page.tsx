@@ -127,7 +127,7 @@ export default function Login() {
               type="text"
               id="matricula"
               name="matricula"
-              className="max-sm:text-sm "
+              className="max-sm:text-sm"
             />
             <span className="text-gray-500 text-sm font-normal w-full text-end transition duration-300 hover:text-cyan-600 ">
               <Sheet>

@@ -39,7 +39,6 @@ export function AppProvider({ children }: AppProviderProps) {
         setUser(data.user);
         setToken(data.access_token);
       }
-      // if (!data) return handleLogout();
     }
 
     getUser();
@@ -52,7 +51,6 @@ export function AppProvider({ children }: AppProviderProps) {
         setShowSideBar,
         user,
         setUser,
-
         token,
         setToken,
         dateFull,
