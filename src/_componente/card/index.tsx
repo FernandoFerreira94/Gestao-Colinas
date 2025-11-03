@@ -32,7 +32,7 @@ import { useTheme } from "next-themes";
 import Cookies from "js-cookie";
 
 const date = new Date();
-const currentDay = 29;
+const currentDay = date.getDate();
 const currentMonth = date.getMonth() + 1;
 const currentYear = date.getFullYear();
 const currentDate = `${currentDay}/${currentMonth}/${currentYear}`;
@@ -167,10 +167,12 @@ export function Card({ loja }: { loja: LojaProps }) {
 
   const textBtn = medidorJaLidoNoMes
     ? "Medição coletada"
-    : currentMonth === month && currentYear === year
+    : currentMonth === month && currentYear === year && currentDay <= 10
     ? "Medição não liberada"
-    : month === laterMonth && currentYear === year && currentDay <= 10
-    ? "Medição  liberada"
+    : month === laterMonth &&
+      currentYear === year &&
+      (currentDay <= 10 || currentDay >= 29)
+    ? "Medição liberada"
     : user.is_adm
     ? "Medição"
     : "Medição não liberada";
