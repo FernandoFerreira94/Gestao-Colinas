@@ -157,7 +157,6 @@ export function Tabela() {
                   }
                 };
 
-                console.log(stylePorcentagem);
                 return (
                   <TableRow
                     title={`${item.nome_loja} - ${item.prefixo_loja}-${item.numero_loja}`}

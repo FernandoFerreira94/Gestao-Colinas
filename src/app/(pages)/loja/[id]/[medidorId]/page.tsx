@@ -208,6 +208,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
   const handleDownload = (imageUrl: string) => {
     if (!imageUrl) return;
 
+   
     // Usa o Fetch API para obter o blob da imagem
     fetch(imageUrl)
       .then((response) => response.blob())

@@ -11,7 +11,7 @@ import {
 import { MdSearch } from "react-icons/md";
 import { InputDate } from "@/components/ui/inputDate";
 import { useAppContext } from "@/context/useAppContext";
-import { useEffect } from "react"; 
+import { useEffect } from "react";
 import { Localidade } from "./localidade";
 
 export function DateTipoMedicao() {
@@ -45,6 +45,26 @@ export function DateTipoMedicao() {
       setTypeMedicao("Energia");
     }
   }, [user, setTypeMedicao]);
+
+  useEffect(() => {
+    function getTipoMedicaoLocalStorage() {
+      const tipoMedicao = localStorage.getItem("typeMedicao") as
+        | "Energia"
+        | "Agua"
+        | "Gas";
+
+      if (tipoMedicao) {
+        setTypeMedicao(tipoMedicao);
+      }
+    }
+
+    getTipoMedicaoLocalStorage();
+  }, []);
+
+  function SetMedicaoLocalStorage(value: "Energia" | "Agua" | "Gas") {
+    setTypeMedicao(value);
+    localStorage.setItem("typeMedicao", value);
+  }
 
   const renderizarOpcoesDeMedicao = () => {
     // ... (restante do seu código da função renderizarOpcoesDeMedicao)
@@ -89,7 +109,11 @@ export function DateTipoMedicao() {
           <Localidade value={localidade} setValue={setLocalidade} />
         </div>
         <div className="w-40 h-full   max-sm:w-full flex items-end ">
-          <Select required value={typeMedicao} onValueChange={setTypeMedicao}>
+          <Select
+            required
+            value={typeMedicao}
+            onValueChange={SetMedicaoLocalStorage}
+          >
             <SelectTrigger>
               <SelectValue placeholder={"Selecione o tipo de medição"} />
             </SelectTrigger>

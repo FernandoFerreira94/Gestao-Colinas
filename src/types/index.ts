@@ -6,6 +6,17 @@ export interface SignInMutationReturn {
   user: UsuarioProps | null;
   session: Session | null;
 }
+export interface MedidorComLeitura {
+  id?: string;
+  tipo_medicao: string;
+  localidade: string;
+  numero_relogio: string;
+  ultima_leitura: number;
+  detalhes: string;
+  data_instalacao: string;
+  leituras: LeituraProps[];
+  dig: number;
+}
 
 export interface UsuarioProps {
   user_id?: string;
@@ -107,17 +118,6 @@ export interface Medidores {
   detalhes: string;
   quadro_distribuicao?: string | null;
   data_instalacao?: string;
-  dig: number;
-}
-export interface MedidorComLeitura {
-  id?: string;
-  tipo_medicao: string;
-  localidade: string;
-  numero_relogio: string;
-  ultima_leitura: number;
-  detalhes: string;
-  data_instalacao: string;
-  leituras: LeituraProps[];
   dig: number;
 }
 
