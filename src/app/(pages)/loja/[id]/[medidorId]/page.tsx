@@ -219,7 +219,7 @@ export default function InfoLoja({ params }: DetalhesProps) {
         a.href = url;
 
         // Define o nome do arquivo, usando um valor padrão
-        const fileName = `foto_leitura_${data?.loja?.prefixo_loja}_${data?.loja?.numero_loja}_${month}_${year}.jpg`;
+        const fileName = `${data?.medidor?.tipo_medicao}_${data?.loja?.nome_loja}_${data?.loja?.prefixo_loja}_${data?.loja?.numero_loja}_${month}_${year}.jpg`;
         a.download = fileName;
 
         document.body.appendChild(a);
